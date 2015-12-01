@@ -103,7 +103,7 @@ public class BaseCardOperationManager  implements NfcAdapter.ReaderCallback{
             }
             throw new AccessCardException("Response: " + logModel.getResponse());
         } catch (IOException e) {
-            logModel.setResponse("Cannot communitcate with NFC Card: " + e.getMessage());
+            logModel.setResponse("Cannot communicate with NFC Card: " + e.getMessage());
             throw new AccessCardException(logModel.getResponse());
         }
     }
