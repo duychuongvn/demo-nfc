@@ -21,6 +21,20 @@
             android:id="@+id/btnCardHistory"
             android:onClick="activeCardHistory"
             />
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Logs"
+            android:id="@+id/btnLog"
+            android:onClick="activeLog"
+            />
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Clear Log"
+            android:id="@+id/btnClearLog"
+            android:onClick="clearLog"
+            />
 
     </LinearLayout>
 </RelativeLayout>

@@ -1,31 +1,66 @@
 package ch.smartlink.smartticketdemo.control;
 
 
+import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.nfc.tech.IsoDep;
 import android.util.Log;
 
 import java.io.IOException;
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import ch.smartlink.smartticketdemo.AccessCardException;
+import ch.smartlink.smartticketdemo.CannotConnectNFCCardException;
 import ch.smartlink.smartticketdemo.model.CardTransaction;
+import ch.smartlink.smartticketdemo.model.LogModel;
 import ch.smartlink.smartticketdemo.util.MessageUtil;
 
-public class BaseCardOperationManager {
+public class BaseCardOperationManager  implements NfcAdapter.ReaderCallback{
     private IsoDep isoDep;
+    private WeakReference<NfcRecordCallback> nfcRecordCallback;
 
-    public BaseCardOperationManager(Tag tag) {
+    private static final List<LogModel> logModels = new ArrayList<>();
+    public interface NfcRecordCallback <T> {
+        public void onNfcCardReceived(T data);
+        public void onNfcCardError(String messageCode);
+    }
 
+    public static void clearLog() {
+        logModels.clear();
+    }
+
+    public static String getLogs() {
+        StringBuilder logStringBuilder = new StringBuilder();
+        for (LogModel logModel : logModels) {
+            logStringBuilder.append(logModel.toString()).append("\n");
+        }
+        return logStringBuilder.toString();
+    }
+
+    protected WeakReference<NfcRecordCallback> getNfcRecordCallback() {
+        return this.nfcRecordCallback;
+    }
+    @Override
+    public void onTagDiscovered(Tag tag) {
         isoDep = IsoDep.get(tag);
         if (isoDep == null) {
-            throw new IllegalStateException("Cannot get NFC Tag");
+            getNfcRecordCallback().get().onNfcCardError("Cannot init IsoDep");
         }
         try {
             isoDep.connect();
         } catch (IOException e) {
-            e.printStackTrace();
-            throw new IllegalStateException("Cannot get NFC Tag");
+            getNfcRecordCallback().get().onNfcCardError("Cannot Communicate with NFC Card");
         }
+    }
+
+
+
+    public BaseCardOperationManager(WeakReference<NfcRecordCallback> nfcRecordCallback) {
+
+        this.nfcRecordCallback = nfcRecordCallback;
     }
 
     protected void openApp() {
@@ -48,18 +83,28 @@ public class BaseCardOperationManager {
     protected String sendAndReceive(String command) {
 
         byte[] arrayOfByte = sendAndReceiveByte(command);
-        String response = MessageUtil.byteArrayToHexString(arrayOfByte);
-        Log.d(this.getClass().getName(), "data: " + response);
-        return response;
+        return MessageUtil.byteArrayToHexString(arrayOfByte);
 
     }
 
-    protected byte[] sendAndReceiveByte(String command) {
-        try {
-            return isoDep.transceive(MessageUtil.hexStringToByteArray(command));
 
+    protected byte[] sendAndReceiveByte(String command) {
+        LogModel logModel = new LogModel();
+        logModels.add(logModel);
+        try {
+            logModel.setCommand(command);
+            byte[] result = isoDep.transceive(MessageUtil.hexStringToByteArray(command));
+            int resultLength = result.length;
+            byte[] statusWord = {result[resultLength-2], result[resultLength-1]};
+            byte[] payload = Arrays.copyOf(result, resultLength - 2);
+            logModel.setResponse(MessageUtil.byteArrayToHexString(result));
+            if(Arrays.equals(statusWord, new byte[]{(byte) 0x90, (byte) 0x00})){
+               return payload;
+            }
+            throw new AccessCardException("Response: " + logModel.getResponse());
         } catch (IOException e) {
-            throw new AccessCardException();
+            logModel.setResponse("Cannot communitcate with NFC Card: " + e.getMessage());
+            throw new AccessCardException(logModel.getResponse());
         }
     }
 }

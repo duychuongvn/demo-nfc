@@ -9,6 +9,8 @@ import android.view.View;
 
 import ch.smartlink.smartticketdemo.activity.CardHistoryActivity;
 import ch.smartlink.smartticketdemo.activity.CardOperationActivity;
+import ch.smartlink.smartticketdemo.activity.ViewLogActivity;
+import ch.smartlink.smartticketdemo.control.BaseCardOperationManager;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,7 +20,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-
+    public void activeLog(View view) {
+        Intent logView = new Intent(getApplicationContext(), ViewLogActivity.class);
+        startActivity(logView);
+    }
     public void activeCardOperation(View view) {
         Intent listViewIntent = new Intent(getApplicationContext(), CardOperationActivity.class);
         startActivity(listViewIntent);
@@ -27,6 +32,9 @@ public class MainActivity extends AppCompatActivity {
     public void activeCardHistory(View view) {
         Intent listViewIntent = new Intent(getApplicationContext(), CardHistoryActivity.class);
         startActivity(listViewIntent);
+    }
+    public void clearLog(View view) {
+        BaseCardOperationManager.clearLog();
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

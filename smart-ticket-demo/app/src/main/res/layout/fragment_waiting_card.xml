@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="380dp"
+    android:layout_height="242.25dp"
+    android:layout_gravity="center"
+    android:layout_margin="20dp">
+    <TextView
+        android:id="@+id/card_account_field"
+        android:width="360dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed"
+        android:textStyle="bold"
+        android:textSize="42dp"
+        android:text="Waiting Card..."
+        android:singleLine="true"
+        />
+</FrameLayout>

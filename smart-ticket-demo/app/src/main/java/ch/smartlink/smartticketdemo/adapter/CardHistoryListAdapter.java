@@ -22,7 +22,6 @@ import ch.smartlink.smartticketdemo.util.MessageUtil;
  * Created by caoky on 11/26/2015.
  */
 public class CardHistoryListAdapter extends BaseAdapter {
-
     private List<CardTransaction> cardTransactions;
     private LayoutInflater layoutInflater;
     private Activity activity;

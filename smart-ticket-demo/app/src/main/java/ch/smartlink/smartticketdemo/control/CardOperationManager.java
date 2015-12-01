@@ -2,40 +2,70 @@ package ch.smartlink.smartticketdemo.control;
 
 import android.nfc.Tag;
 
+import java.lang.ref.WeakReference;
 import java.math.BigDecimal;
 import java.util.Calendar;
 
+import ch.smartlink.smartticketdemo.AccessCardException;
 import ch.smartlink.smartticketdemo.model.CardInfo;
 import ch.smartlink.smartticketdemo.model.CardTransaction;
 import ch.smartlink.smartticketdemo.util.Constant;
 import ch.smartlink.smartticketdemo.util.MessageUtil;
 
 
-public class CardOperationManager extends BaseCardOperationManager {
-    public CardOperationManager(Tag tag) {
-        super(tag);
+public class CardOperationManager extends BaseCardOperationManager  {
+    private CardInfo cardInfo;
+    public CardOperationManager(NfcRecordCallback nfcRecordCallback) {
+        super(new WeakReference<NfcRecordCallback>(nfcRecordCallback));
+    }
+
+    @Override
+    public void onTagDiscovered(Tag tag) {
+        super.onTagDiscovered(tag);
+        try {
+            readCardInfo();
+        }catch (AccessCardException ex) {
+            getNfcRecordCallback().get().onNfcCardError(ex.getMessage());
+        };
     }
 
     public CardInfo getCardInfo() {
-        openApp();
-        selectFileAccount();
-        return readAccount();
+        return cardInfo;
     }
 
-    public void doCredit(BigDecimal amount, CardInfo cardInfo) {
-        CardTransaction cardTransaction = new CardTransaction(Calendar.getInstance().getTimeInMillis(),
-                cardInfo.getBalance(), amount, cardInfo.getCurrency(), Constant.OPERATION_CREDIT);
-        cardInfo.setBalance(cardInfo.getBalance().add(amount));
-
-        updateBalance(MessageUtil.formatBalanceToStore(cardInfo.getBalance()));
-        storeTransaction(cardTransaction);
+    public void readCardInfo() {
+        try {
+            openApp();
+            selectFileAccount();
+            this.cardInfo = readAccount();
+            getNfcRecordCallback().get().onNfcCardReceived(cardInfo);
+        }catch (AccessCardException ex) {
+            getNfcRecordCallback().get().onNfcCardError(ex.getMessage());
+        };
     }
-    public void doDebit(BigDecimal amount, CardInfo cardInfo) {
-        CardTransaction cardTransaction = new CardTransaction(Calendar.getInstance().getTimeInMillis(),
-                cardInfo.getBalance(), amount, cardInfo.getCurrency(), Constant.OPERATION_DEBIT);
-        cardInfo.setBalance(cardInfo.getBalance().subtract(amount));
-        updateBalance(MessageUtil.formatBalanceToStore(cardInfo.getBalance()));
-        storeTransaction(cardTransaction);
+
+    public void doCredit(BigDecimal amount) {
+        try {
+            CardTransaction cardTransaction = new CardTransaction(Calendar.getInstance().getTimeInMillis(),
+                    cardInfo.getBalance(), amount, cardInfo.getCurrency(), Constant.OPERATION_CREDIT);
+            cardInfo.setBalance(cardInfo.getBalance().add(amount));
+
+            updateBalance(MessageUtil.formatBalanceToStore(cardInfo.getBalance()));
+            storeTransaction(cardTransaction);
+        }catch (AccessCardException ex) {
+            getNfcRecordCallback().get().onNfcCardError(ex.getMessage());
+        };
+    }
+    public void doDebit(BigDecimal amount) {
+        try {
+            CardTransaction cardTransaction = new CardTransaction(Calendar.getInstance().getTimeInMillis(),
+                    cardInfo.getBalance(), amount, cardInfo.getCurrency(), Constant.OPERATION_DEBIT);
+            cardInfo.setBalance(cardInfo.getBalance().subtract(amount));
+            updateBalance(MessageUtil.formatBalanceToStore(cardInfo.getBalance()));
+            storeTransaction(cardTransaction);
+        }catch (AccessCardException ex) {
+            getNfcRecordCallback().get().onNfcCardError(ex.getMessage());
+        };
     }
 
     private void storeTransaction(CardTransaction cardTransaction) {

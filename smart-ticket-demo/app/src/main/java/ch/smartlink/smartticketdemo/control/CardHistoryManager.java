@@ -4,11 +4,13 @@ import android.nfc.Tag;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.lang.ref.WeakReference;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import ch.smartlink.smartticketdemo.AccessCardException;
 import ch.smartlink.smartticketdemo.model.CardTransaction;
 import ch.smartlink.smartticketdemo.util.MessageUtil;
 
@@ -16,11 +18,22 @@ import ch.smartlink.smartticketdemo.util.MessageUtil;
  * Created by caoky on 11/27/2015.
  */
 public class CardHistoryManager extends BaseCardOperationManager {
-    public CardHistoryManager(Tag tag) {
-        super(tag);
+
+    public CardHistoryManager(NfcRecordCallback nfcRecordCallback) {
+        super(new WeakReference<NfcRecordCallback>(nfcRecordCallback));
+    }
+    @Override
+    public void onTagDiscovered(Tag tag) {
+        super.onTagDiscovered(tag);
+        try {
+            getNfcRecordCallback().get().onNfcCardReceived(getCardTransactions());
+        } catch (AccessCardException ex) {
+            getNfcRecordCallback().get().onNfcCardError(ex.getMessage());
+        }
+
     }
 
-    public List<CardTransaction> getCardTransactions() {
+    private List<CardTransaction> getCardTransactions() {
         openApp();
         selectTransactionFile();
         return readTransactionRecords();

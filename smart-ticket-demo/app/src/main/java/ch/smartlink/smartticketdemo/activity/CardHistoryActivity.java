@@ -1,5 +1,8 @@
 package ch.smartlink.smartticketdemo.activity;
 
+import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.app.ListActivity;
 import android.app.PendingIntent;
 import android.content.Intent;
@@ -8,6 +11,8 @@ import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -20,73 +25,91 @@ import java.util.List;
 
 import ch.smartlink.smartticketdemo.R;
 import ch.smartlink.smartticketdemo.adapter.CardHistoryListAdapter;
+import ch.smartlink.smartticketdemo.control.BaseCardOperationManager;
 import ch.smartlink.smartticketdemo.control.CardHistoryManager;
 import ch.smartlink.smartticketdemo.control.CardOperationManager;
+import ch.smartlink.smartticketdemo.fragment.CardFragment;
+import ch.smartlink.smartticketdemo.fragment.CardHistoryFragment;
+import ch.smartlink.smartticketdemo.model.CardInfo;
 import ch.smartlink.smartticketdemo.model.CardTransaction;
 
-public class CardHistoryActivity extends AppCompatActivity {
-    private static final int PENDING_INTENT_TECH_DISCOVERED = 1;
+public class CardHistoryActivity extends AppCompatActivity implements BaseCardOperationManager.NfcRecordCallback<List<CardTransaction>>{
+    private static final int READER_FLAGS = NfcAdapter.FLAG_READER_NFC_A;
+    private static final String TAG = "CardHistoryActivity";
     private NfcAdapter nfcAdapter;
     private PendingIntent pendingIntent;
     private ListView lsvCardHistory;
     private List<CardTransaction> cardTransactions = new ArrayList<>();
     private CardHistoryManager cardHistoryManager;;
     private CardHistoryListAdapter cardHistoryListAdapter;
+    private CardHistoryFragment cardHistoryFragment;
+    private CardFragment waitingFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_history);
-        lsvCardHistory = (ListView) findViewById(R.id.lsvCardHistory);
-        cardHistoryListAdapter = new CardHistoryListAdapter(this, cardTransactions);
-        lsvCardHistory.setAdapter(cardHistoryListAdapter);
-        nfcAdapter = NfcAdapter.getDefaultAdapter(this);
-        this.pendingIntent = createPendingResult(PENDING_INTENT_TECH_DISCOVERED, new Intent(), 0);
+        cardHistoryManager = new CardHistoryManager(this);
+        cardHistoryFragment = new CardHistoryFragment();
+        waitingFragment = new CardFragment();
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_history_content, waitingFragment);
+        fragmentTransaction.commit();
     }
     @Override
-    protected void onResume() {
-        super.onResume();
-        if (this.nfcAdapter != null) {
-            nfcAdapter.enableForegroundDispatch(
-                    this,
-                    pendingIntent,
-                    new IntentFilter[]{
-                            new IntentFilter(NfcAdapter.ACTION_TECH_DISCOVERED)
-                    },
-                    new String[][]{
-                            new String[]{"android.nfc.tech.NfcA"}
-                    });
-        }
-    }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case PENDING_INTENT_TECH_DISCOVERED:
-                resolveIntent(data, true);
-                break;
-        }
-    }
+    public void onNfcCardReceived(final List<CardTransaction> cardTransactions) {
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
 
-    private void resolveIntent(Intent data, boolean foregroundDispatch) {
-        this.setIntent(data);
 
-        String action = data.getAction();
-        if (NfcAdapter.ACTION_TECH_DISCOVERED.equals(action)
-                || NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) {
-            Tag tag = data.getParcelableExtra("android.nfc.extra.TAG");
-            onTagDiscovered(tag);
-        }
-    }
-    public void onTagDiscovered(Tag tag) {
-        try{
-            cardHistoryManager = new CardHistoryManager(tag);
-            List<CardTransaction> cardTransactions = cardHistoryManager.getCardTransactions();
-            if(cardTransactions.isEmpty()) {
-                Toast.makeText(getApplicationContext(), "There is not data", Toast.LENGTH_LONG);
+                cardHistoryFragment.updateView(cardTransactions);
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_history_content, cardHistoryFragment);
+                fragmentTransaction.commit();
+
             }
-            cardHistoryListAdapter.renewCollections(cardTransactions);
-        }catch (Exception ex) {
-            Toast.makeText(getApplicationContext(), "Cannot connect or read card data", Toast.LENGTH_LONG);
-        }
+        });
 
+    }
+
+    @Override
+    public void onNfcCardError(final String messageCode) {
+        final Activity activity = this;
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(activity, "Error:  " + messageCode, Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        disableReaderMode();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        enableReaderMode();
+    }
+
+    private void enableReaderMode() {
+        Log.i(TAG, "Enabling reader mode");
+        NfcAdapter nfc = NfcAdapter.getDefaultAdapter(this);
+        if (nfc != null) {
+            nfc.enableReaderMode(this, cardHistoryManager, READER_FLAGS, null);
+        }
+    }
+
+    private void disableReaderMode() {
+        Log.i(TAG, "Disabling reader mode");
+        NfcAdapter nfc = NfcAdapter.getDefaultAdapter(this);
+        if (nfc != null) {
+            nfc.disableReaderMode(this);
+        }
     }
 }
