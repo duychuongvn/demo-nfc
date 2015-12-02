@@ -6,6 +6,16 @@ import android.nfc.Tag;
 import android.nfc.tech.IsoDep;
 import android.util.Log;
 
+import org.osptalliance.cipurse.CipurseException;
+import org.osptalliance.cipurse.ICommsChannel;
+import org.osptalliance.cipurse.ILogger;
+import org.osptalliance.cipurse.commands.ByteArray;
+import org.osptalliance.cipurse.commands.CipurseCardHandler;
+import org.osptalliance.cipurse.commands.CommandAPI;
+import org.osptalliance.cipurse.commands.CommandAPIFactory;
+import org.osptalliance.cipurse.commands.ICipurseAdministration;
+import org.osptalliance.cipurse.commands.ICipurseOperational;
+
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -14,30 +24,38 @@ import java.util.List;
 
 import ch.smartlink.smartticketdemo.AccessCardException;
 import ch.smartlink.smartticketdemo.CannotConnectNFCCardException;
+import ch.smartlink.smartticketdemo.cipurse.CommsChannel;
+import ch.smartlink.smartticketdemo.cipurse.Logger;
 import ch.smartlink.smartticketdemo.model.CardTransaction;
 import ch.smartlink.smartticketdemo.model.LogModel;
+import ch.smartlink.smartticketdemo.util.Constant;
 import ch.smartlink.smartticketdemo.util.MessageUtil;
 
-public class BaseCardOperationManager  implements NfcAdapter.ReaderCallback{
+public class BaseCardOperationManager implements NfcAdapter.ReaderCallback {
+    private ICommsChannel commsChannel;
+    private ILogger logger;
+    private CipurseCardHandler cipurseCardHandler;
+    private ICipurseOperational cipurseOperational;
+    private ICipurseAdministration cipurseAdministration;
+
+    public BaseCardOperationManager(WeakReference<NfcRecordCallback> nfcRecordCallback) {
+        this.nfcRecordCallback = nfcRecordCallback;
+        this.logger = new Logger();
+    }
     private IsoDep isoDep;
     private WeakReference<NfcRecordCallback> nfcRecordCallback;
 
-    private static final List<LogModel> logModels = new ArrayList<>();
     public interface NfcRecordCallback <T> {
         public void onNfcCardReceived(T data);
         public void onNfcCardError(String messageCode);
     }
-
-    public static void clearLog() {
-        logModels.clear();
-    }
-
-    public static String getLogs() {
-        StringBuilder logStringBuilder = new StringBuilder();
-        for (LogModel logModel : logModels) {
-            logStringBuilder.append(logModel.toString()).append("\n");
-        }
-        return logStringBuilder.toString();
+    public void initCommand() throws CipurseException {
+        cipurseCardHandler = new CipurseCardHandler(commsChannel, null, logger);
+        CommandAPI cmdApi = CommandAPIFactory.getInstance().buildCommandAPI();
+        cmdApi.setVersion(CommandAPI.Version.V2);
+        cipurseOperational = cmdApi.getCipurseOperational(cipurseCardHandler);
+        cipurseAdministration = cmdApi.getCipurseAdministration(cipurseCardHandler);
+        cipurseCardHandler.open();
     }
 
     protected WeakReference<NfcRecordCallback> getNfcRecordCallback() {
@@ -45,23 +63,11 @@ public class BaseCardOperationManager  implements NfcAdapter.ReaderCallback{
     }
     @Override
     public void onTagDiscovered(Tag tag) {
-        isoDep = IsoDep.get(tag);
-        if (isoDep == null) {
-            getNfcRecordCallback().get().onNfcCardError("Cannot init IsoDep");
-        }
-        try {
-            isoDep.connect();
-        } catch (IOException e) {
-            getNfcRecordCallback().get().onNfcCardError("Cannot Communicate with NFC Card");
-        }
+        this.commsChannel = new CommsChannel(tag);
+        this.logger = new Logger();
     }
 
 
-
-    public BaseCardOperationManager(WeakReference<NfcRecordCallback> nfcRecordCallback) {
-
-        this.nfcRecordCallback = nfcRecordCallback;
-    }
 
     protected void openApp() {
         readFileMF();
@@ -69,15 +75,26 @@ public class BaseCardOperationManager  implements NfcAdapter.ReaderCallback{
     }
 
     protected void readFileMF() {
-        sendAndReceive("00A40000");
+        try {
+            cipurseOperational.selectMF();
+        }catch (CipurseException ex) {
+            throw new AccessCardException(ex.getMessage());
+        }
     }
-
     protected void selectADF() {
-        sendAndReceive("00A404000DD2760000041502000003000101");
+        try {
+            cipurseOperational.selectFilebyAID(new ByteArray(Constant.ID_ADF_SMARTLINK_TICKET));
+        }catch (CipurseException ex) {
+            throw new AccessCardException(ex.getMessage());
+        }
     }
 
     protected void selectTransactionFile() {
-        sendAndReceive("00A40000023002");
+        try {
+            cipurseOperational.selectFilebyFID(Constant.ID_FILE_CARD_HISTROY);
+        }catch (CipurseException ex) {
+            throw new AccessCardException(ex.getMessage());
+        };
     }
 
     protected String sendAndReceive(String command) {
@@ -89,22 +106,23 @@ public class BaseCardOperationManager  implements NfcAdapter.ReaderCallback{
 
 
     protected byte[] sendAndReceiveByte(String command) {
-        LogModel logModel = new LogModel();
-        logModels.add(logModel);
+
         try {
-            logModel.setCommand(command);
-            byte[] result = isoDep.transceive(MessageUtil.hexStringToByteArray(command));
+            byte[] result = cipurseCardHandler.transmit(new ByteArray(MessageUtil.hexStringToByteArray(command))).getBytes();
             int resultLength = result.length;
             byte[] statusWord = {result[resultLength-2], result[resultLength-1]};
             byte[] payload = Arrays.copyOf(result, resultLength - 2);
-            logModel.setResponse(MessageUtil.byteArrayToHexString(result));
             if(Arrays.equals(statusWord, new byte[]{(byte) 0x90, (byte) 0x00})){
                return payload;
             }
-            throw new AccessCardException("Response: " + logModel.getResponse());
-        } catch (IOException e) {
-            logModel.setResponse("Cannot communicate with NFC Card: " + e.getMessage());
-            throw new AccessCardException(logModel.getResponse());
+            throw new AccessCardException("Response: " + MessageUtil.byteArrayToHexString(result));
+        } catch (CipurseException e) {
+            throw new AccessCardException("Cannot communicate with NFC Card: " + e.getMessage());
         }
     }
+
+    protected ICipurseOperational getCipurseOperational() {
+        return cipurseOperational;
+    }
+
 }

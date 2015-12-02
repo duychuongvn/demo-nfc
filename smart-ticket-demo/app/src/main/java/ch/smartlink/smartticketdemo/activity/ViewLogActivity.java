@@ -7,6 +7,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import ch.smartlink.smartticketdemo.R;
+import ch.smartlink.smartticketdemo.cipurse.Logger;
 import ch.smartlink.smartticketdemo.control.BaseCardOperationManager;
 
 /**
@@ -33,7 +34,7 @@ public class ViewLogActivity extends AppCompatActivity {
 
     private void loadLog() {
         if (txtLog != null) {
-            txtLog.setText(BaseCardOperationManager.getLogs());
+            txtLog.setText(Logger.getLogContent());
         }
     }
 }

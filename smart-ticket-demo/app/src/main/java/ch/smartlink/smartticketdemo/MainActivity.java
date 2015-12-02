@@ -10,6 +10,7 @@ import android.view.View;
 import ch.smartlink.smartticketdemo.activity.CardHistoryActivity;
 import ch.smartlink.smartticketdemo.activity.CardOperationActivity;
 import ch.smartlink.smartticketdemo.activity.ViewLogActivity;
+import ch.smartlink.smartticketdemo.cipurse.Logger;
 import ch.smartlink.smartticketdemo.control.BaseCardOperationManager;
 
 public class MainActivity extends AppCompatActivity {
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(listViewIntent);
     }
     public void clearLog(View view) {
-        BaseCardOperationManager.clearLog();
+        Logger.clearLogContent();
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

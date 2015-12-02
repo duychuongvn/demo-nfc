@@ -4,6 +4,8 @@ import android.nfc.Tag;
 import android.util.Log;
 import android.widget.Toast;
 
+import org.osptalliance.cipurse.CipurseException;
+
 import java.lang.ref.WeakReference;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -12,6 +14,7 @@ import java.util.List;
 
 import ch.smartlink.smartticketdemo.AccessCardException;
 import ch.smartlink.smartticketdemo.model.CardTransaction;
+import ch.smartlink.smartticketdemo.util.Constant;
 import ch.smartlink.smartticketdemo.util.MessageUtil;
 
 /**
@@ -26,34 +29,46 @@ public class CardHistoryManager extends BaseCardOperationManager {
     public void onTagDiscovered(Tag tag) {
         super.onTagDiscovered(tag);
         try {
+            initCommand();
+
             getNfcRecordCallback().get().onNfcCardReceived(getCardTransactions());
-        } catch (AccessCardException ex) {
+        } catch (Exception ex) {
             getNfcRecordCallback().get().onNfcCardError(ex.getMessage());
         }
 
     }
 
-    private List<CardTransaction> getCardTransactions() {
+    private List<CardTransaction> getCardTransactions() throws CipurseException{
         openApp();
         selectTransactionFile();
         return readTransactionRecords();
     }
-    private List<CardTransaction> readTransactionRecords() {
+    private List<CardTransaction> readTransactionRecords() throws CipurseException{
         int totalRecords = 10;
         List<CardTransaction> cardTransactions = new ArrayList<>();
         int index = 0;
         byte[] emptyData = new byte[49];
-        while (index < totalRecords) {
-            String command = "00B2%02X0431";
-            byte[] data = sendAndReceiveByte(String.format(command, (++index)));
-            String planData = new String(data);
-            if(Arrays.equals(data, emptyData)) {
-                Log.i(getClass().getName(), "End data");
-            }
-            if(!planData.startsWith("1")) {
-                break;
+        byte readModeSingleRecord = 04;
+        while (index++ < totalRecords) {
+           // String command = "00B2%02X0431";
+            byte[] result = getCipurseOperational().readRecord((short)index, readModeSingleRecord,(short) Constant.LENGH_CARD_TRANSACTION_BIN).getBytes();
+
+          //  byte[] data = sendAndReceiveByte(String.format(command, (++index)));
+            int resultLength = result.length;
+            byte[] statusWord = {result[resultLength-2], result[resultLength-1]};
+            byte[] payload = Arrays.copyOf(result, resultLength - 2);
+            if(!Arrays.equals(statusWord, new byte[]{(byte) 0x90, (byte) 0x00})){
+                throw new AccessCardException("Response: ");
             }
 
+            if(Arrays.equals(payload, emptyData)) {
+                Log.i(getClass().getName(), "End data");
+                break;
+            }
+//            if(!planData.startsWith("1")) {
+//                break;
+//            }
+            String planData = new String(payload);
             String[] datas = planData.trim().split(" ");
             CardTransaction cardTransaction = new CardTransaction(new Long(datas[0]),
                                                         new BigDecimal(datas[1])

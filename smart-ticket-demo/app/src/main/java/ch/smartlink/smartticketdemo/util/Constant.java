@@ -6,10 +6,10 @@ public class Constant {
     public static final int ID_FILE_LIST = 0x2FF1;
     public static final int ID_FILE_USER_DATA = 0x3001;
     public static final int ID_FILE_CARD_HISTROY = 0x3002;
-    public static final String ID_ADF_SMARTLINK_TICKET = "D2 76 00 00 04 15 02 00 00 03 00 01 01";
+    public static final String ID_ADF_SMARTLINK_TICKET = "D1 00 00 01";
 
     public static final int LENGH_USER_DATA_BIN = 40;
-    public static final int LENGH_CARD_TRANSACTION_BIN = 47;
+    public static final int LENGH_CARD_TRANSACTION_BIN = 49;
     public static final int TOTAL_RECORD_CARD_TRANSACTION = 10;
 
     public static final String OPERATION_CREDIT = "0";
