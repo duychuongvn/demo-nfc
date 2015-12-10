@@ -12,7 +12,7 @@ public class Constant {
 	public static final String ID_ADF_SMARTLINK_TICKET = "DF 00 00 00 00 00 11 11";
 	
 	public static final int LENGH_CARD_DATA_BIN = 58;
-	public static final int LENGH_CARD_TRANSACTION_BIN = 124;
+	public static final int LENGH_CARD_TRANSACTION_BIN = 184;
 	public static final int TOTAL_RECORD_CARD_TRANSACTION = 20;
 
 	public static final int LENGTH_AUTHIRIZARION = 9;

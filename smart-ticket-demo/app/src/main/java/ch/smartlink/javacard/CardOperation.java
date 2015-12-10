@@ -6,8 +6,8 @@ import java.math.BigDecimal;
  * Created by caoky on 12/8/2015.
  */
 public class CardOperation {
-    public static final int LENGTH_LOCATION = 20;
-    public static final int LENGTH_MERCHANT = 20;
+    public static final int LENGTH_LOCATION = 50;
+    public static final int LENGTH_MERCHANT = 50;
     private BigDecimal amount;
     private String merchant;
     private String location;
