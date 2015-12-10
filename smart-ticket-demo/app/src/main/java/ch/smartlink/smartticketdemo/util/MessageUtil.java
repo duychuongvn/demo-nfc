@@ -18,6 +18,14 @@ public class MessageUtil {
         }
         return data;
     }
+
+    public static String leftSpacePadding(String value, int len) {
+        String data = value;
+        while (data.length() < len) {
+            data = " " + data;
+        }
+        return data;
+    }
     public static byte[] hexStringToByteArray(String s) {
         int len = s.length();
         byte[] data = new byte[len / 2];

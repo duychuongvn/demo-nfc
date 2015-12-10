@@ -28,31 +28,31 @@ public class CardOperationManager extends BaseCardOperationManager  {
     }
 
     public void onTagDiscovered(Tag tag) {
-        try {
-            super.onTagDiscovered(tag);
-            initCommand();
-            readCardInfo();
-        }catch (AccessCardException ex) {
-            getNfcRecordCallback().get().onNfcCardError(ex.getMessage());
-        }catch (CipurseException ex) {
-            getNfcRecordCallback().get().onNfcCardError(ex.getMessage());
-        }
 //        try {
-//            Account account = new Account();
-//            account.setCardNumber("1000200030005000");
-//            account.setExpiryDate("1220");
-//            account.setCurrency("EUR");
-//            account.setBalance(BigDecimal.TEN);
-//            CommsChannel commsChannel = new CommsChannel(tag);
-//            PaymentCardCreator paymentCardCreator = new PaymentCardCreator(commsChannel, new Logger());
-//            paymentCardCreator.installApplication();
-//            paymentCardCreator.initCardInfo(account);
-//
-//           // super.onTagDiscovered(tag);
+//            super.onTagDiscovered(tag);
+//            initCommand();
 //            readCardInfo();
+//        }catch (AccessCardException ex) {
+//            getNfcRecordCallback().get().onNfcCardError(ex.getMessage());
 //        }catch (CipurseException ex) {
 //            getNfcRecordCallback().get().onNfcCardError(ex.getMessage());
 //        }
+        try {
+            Account account = new Account();
+            account.setCardNumber("1000200030005000");
+            account.setExpiryDate("1220");
+            account.setCurrency("EUR");
+            account.setBalance(BigDecimal.TEN);
+            CommsChannel commsChannel = new CommsChannel(tag);
+            PaymentCardCreator paymentCardCreator = new PaymentCardCreator(commsChannel, new Logger());
+            paymentCardCreator.installApplication();
+            paymentCardCreator.initCardInfo(account);
+
+           // super.onTagDiscovered(tag);
+            readCardInfo();
+        }catch (CipurseException ex) {
+            getNfcRecordCallback().get().onNfcCardError(ex.getMessage());
+        }
     }
 
     public CardInfo getCardInfo() {

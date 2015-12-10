@@ -22,6 +22,13 @@ public class MessageUtil {
         }
         return data;
     }
+    public static String leftSpacePadding(String value, int len) {
+        String data = value;
+        while (data.length() < len) {
+            data = " " + data;
+        }
+        return data;
+    }
 
     public static String randomNumeric(int length) {
         Random random = new Random();

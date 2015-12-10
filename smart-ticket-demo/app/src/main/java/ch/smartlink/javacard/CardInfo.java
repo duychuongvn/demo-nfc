@@ -20,7 +20,7 @@ public class CardInfo {
 
     public static CardInfo parseData(byte[] cardInfoInBytes) {
         String plainData = new String(cardInfoInBytes);
-        String[] dataFragments = plainData.trim().split(" ");
+        String[] dataFragments = plainData.trim().split(Constant.SPLITTER);
         String walletId = dataFragments[0];
         BigDecimal amount = new BigDecimal(dataFragments[1]);
         String currency = dataFragments[2];
@@ -29,8 +29,8 @@ public class CardInfo {
 
     public byte[] toBytes() {
         StringBuilder cardInfoBuider = new StringBuilder();
-        cardInfoBuider.append(this.walletId).append(" ");
-        cardInfoBuider.append(MessageUtil.formatBalanceToStore(this.balance)).append(" ");
+        cardInfoBuider.append(this.walletId).append(Constant.SPLITTER);
+        cardInfoBuider.append(MessageUtil.formatBalanceToStore(this.balance)).append(Constant.SPLITTER);
         cardInfoBuider.append(this.currency);
         return cardInfoBuider.toString().getBytes();
 

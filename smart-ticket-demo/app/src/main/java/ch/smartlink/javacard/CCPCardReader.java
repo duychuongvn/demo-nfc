@@ -50,6 +50,19 @@ public class CCPCardReader {
         return storeTransaction(cardInfo, cardOperation, Constant.TRANSACTION_TYPE_CREDIT);
 
     }
+
+
+    public CardTransaction credit(CardOperation cardOperation) throws CipurseException {
+        initCommand();
+        cipurseCardHandler.reset(COLD_RESET);
+        cipurseOperational.selectMF();
+        selectADF();
+        CardInfo cardInfo = getCardInfo();
+        cardInfo.setBalance(cardInfo.getBalance().add(cardOperation.getAmount()));
+        storeCardInfo(cardInfo);
+        return storeTransaction(cardInfo, cardOperation, Constant.TRANSACTION_TYPE_CREDIT);
+
+    }
     public CardTransaction debit(CardOperation cardOperation) throws CipurseException {
         initCommand();
         cipurseCardHandler.reset(COLD_RESET);
@@ -77,7 +90,7 @@ public class CCPCardReader {
                 cardOperation.getAmount(),
                 cardInfo.getBalance(),
                 cardInfo.getCurrency(),
-                Constant.TRANSACTION_TYPE_CREDIT
+                transactionType
 
         );
         ByteArray response = cipurseOperational.appendRecord(new ByteArray(cardTransaction.toBytes()));

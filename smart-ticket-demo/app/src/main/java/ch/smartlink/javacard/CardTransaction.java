@@ -1,8 +1,7 @@
 package ch.smartlink.javacard;
-import java.math.BigDecimal;
 
-import ch.smartlink.javacard.CardOperation;
-import ch.smartlink.javacard.MessageUtil;
+import java.math.BigDecimal;
+import java.util.Calendar;
 
 public class CardTransaction {
     private long timeInMiliSeconds;
@@ -14,7 +13,7 @@ public class CardTransaction {
     private BigDecimal remainBalance;
     private String currency;
     private String type;
-    private String walletId;
+    private String waletId;
 
     public CardTransaction(String walletId, long timeInMiliSeconds, String id, String authorization, String location, String merchant,
                            BigDecimal amount, BigDecimal remainBalance, String currency, String type) {
@@ -27,25 +26,26 @@ public class CardTransaction {
         this.remainBalance = remainBalance;
         this.currency = currency;
         this.type = type;
-        this.walletId = walletId;
+        this.waletId = walletId;
     }
 
     public byte[] toBytes() {
         StringBuilder dataBuilder = new StringBuilder();
-        dataBuilder.append(this.getTimeInMiliSeconds()).append(" ");
-        dataBuilder.append(this.authorization).append(" ");
-        dataBuilder.append(this.id).append(" ");
-        dataBuilder.append(MessageUtil.formatBalanceToStore(this.remainBalance)).append(" ");
-        dataBuilder.append(MessageUtil.formatBalanceToStore(this.amount)).append(" ");
-        dataBuilder.append(this.currency).append(" ");
-        dataBuilder.append(this.type).append(" ");
-        dataBuilder.append(MessageUtil.leftZeroPadding(this.location, CardOperation.LENGTH_LOCATION)).append(" ");
-        dataBuilder.append(MessageUtil.leftZeroPadding(this.merchant, CardOperation.LENGTH_MERCHANT));
+        dataBuilder.append(this.getTimeInMiliSeconds()).append(Constant.SPLITTER);
+        dataBuilder.append(this.authorization).append(Constant.SPLITTER);
+        dataBuilder.append(this.id).append(Constant.SPLITTER);
+        dataBuilder.append(MessageUtil.formatBalanceToStore(this.remainBalance)).append(Constant.SPLITTER);
+        dataBuilder.append(MessageUtil.formatBalanceToStore(this.amount)).append(Constant.SPLITTER);
+        dataBuilder.append(this.currency).append(Constant.SPLITTER);
+        dataBuilder.append(this.type).append(Constant.SPLITTER);
+        dataBuilder.append(MessageUtil.leftSpacePadding(this.location, CardOperation.LENGTH_LOCATION)).append(Constant.SPLITTER);
+        dataBuilder.append(MessageUtil.leftSpacePadding(this.merchant, CardOperation.LENGTH_MERCHANT));
         return dataBuilder.toString().getBytes();
     }
+
     public static CardTransaction parseCardTransaction(String walletId, byte[] cardTransactionInBytes) {
         String data = new String(cardTransactionInBytes);
-        String[] dataFragment = data.trim().split(" ");
+        String[] dataFragment = data.trim().split(Constant.SPLITTER);
         int columnIndex = 0;
         long timeInMiliSeconds = new Long(dataFragment[columnIndex++]);
         String authorization = dataFragment[columnIndex++];
@@ -54,8 +54,8 @@ public class CardTransaction {
         BigDecimal amount = new BigDecimal(dataFragment[columnIndex++]);
         String currency = dataFragment[columnIndex++];
         String type = dataFragment[columnIndex++];
-        String location = dataFragment[columnIndex++];
-        String merchant = dataFragment[columnIndex++];
+        String location = dataFragment[columnIndex++].trim();
+        String merchant = dataFragment[columnIndex++].trim();
         return new CardTransaction(walletId, timeInMiliSeconds, id, authorization, location, merchant, amount, remainBalance, currency, type);
 
 
@@ -95,9 +95,5 @@ public class CardTransaction {
 
     public String getType() {
         return type;
-    }
-
-    public String getWalletId() {
-        return walletId;
     }
 }
