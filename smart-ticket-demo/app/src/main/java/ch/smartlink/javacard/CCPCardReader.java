@@ -51,6 +51,26 @@ public class CCPCardReader {
 
     }
 
+    public boolean isCardInitialized(String walletId) throws CipurseException  {
+        initCommand();
+        boolean isCardInitialized = true;
+        try{
+            cipurseCardHandler.reset(COLD_RESET);
+            cipurseOperational.selectMF();
+            selectADF();
+            selectFileCardTransaction();
+            CardInfo cardInfo = getCardInfo();
+            isCardInitialized = cardInfo.getWalletId().equals(walletId);
+        } catch (CipurseException ex) {
+            if("6A 82".equals(ex.getMessage())) {
+                isCardInitialized = false;
+            } else {
+                throw  ex;
+            }
+        }
+
+        return isCardInitialized;
+    }
 
     public CardTransaction credit(CardOperation cardOperation) throws CipurseException {
         initCommand();
@@ -101,16 +121,19 @@ public class CCPCardReader {
 
 
     private CardInfo getCardInfo() throws CipurseException {
-        cipurseOperational.selectFilebyFID(Constant.ID_FILE_CARD_INFO);
-        ByteArray response = cipurseOperational.readBinary((short)0, (short)Constant.LENGH_CARD_DATA_BIN);
+        ByteArray response = cipurseOperational.selectFilebyFID(Constant.ID_FILE_CARD_INFO);
+        handleError(response);
+        response = cipurseOperational.readBinary((short)0, (short)Constant.LENGH_CARD_DATA_BIN);
         handleError(response);
         return CardInfo.parseData(response.subArray(0, Constant.LENGH_CARD_DATA_BIN).getBytes());
     }
     private void selectADF() throws CipurseException {
-        cipurseOperational.selectFilebyAID(new ByteArray(Constant.ID_ADF_SMARTLINK_TICKET));
+        ByteArray response = cipurseOperational.selectFilebyAID(new ByteArray(Constant.ID_ADF_SMARTLINK_TICKET));
+        handleError(response);
     }
     private void selectFileCardTransaction() throws CipurseException {
-        cipurseOperational.selectFilebyFID(Constant.ID_FILE_CARD_HISTORY);
+        ByteArray response = cipurseOperational.selectFilebyFID(Constant.ID_FILE_CARD_HISTORY);
+        handleError(response);
     }
     private void storeCardInfo(CardInfo cardInfo) throws CipurseException {
         cipurseOperational.selectMF();
