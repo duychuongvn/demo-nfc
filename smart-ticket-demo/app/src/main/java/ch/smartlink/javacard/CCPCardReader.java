@@ -4,7 +4,14 @@ package ch.smartlink.javacard;
 import org.osptalliance.cipurse.CipurseException;
 import org.osptalliance.cipurse.ICommsChannel;
 import org.osptalliance.cipurse.ILogger;
-import org.osptalliance.cipurse.commands.*;
+import org.osptalliance.cipurse.commands.ByteArray;
+import org.osptalliance.cipurse.commands.CipurseCardHandler;
+import org.osptalliance.cipurse.commands.CommandAPI;
+import org.osptalliance.cipurse.commands.CommandAPIFactory;
+import org.osptalliance.cipurse.commands.DFFileAttributes;
+import org.osptalliance.cipurse.commands.EFFileAttributes;
+import org.osptalliance.cipurse.commands.ICipurseAdministration;
+import org.osptalliance.cipurse.commands.ICipurseOperational;
 
 import java.util.Calendar;
 
@@ -17,9 +24,11 @@ public class CCPCardReader {
     private ICipurseOperational cipurseOperational;
     private ICipurseAdministration cipurseAdministration;
 
-    public CCPCardReader(ICommsChannel commsChannel, ILogger logger) {
+    public CCPCardReader(ICommsChannel commsChannel, ILogger logger) throws CipurseException {
         this.commsChannel = commsChannel;
         this.logger = logger;
+        initCommand();
+        this.commsChannel.open();
 
     }
 
@@ -29,7 +38,6 @@ public class CCPCardReader {
         cmdApi.setVersion(CommandAPI.Version.V2);
         cipurseOperational = cmdApi.getCipurseOperational(cipurseCardHandler);
         cipurseAdministration = cmdApi.getCipurseAdministration(cipurseCardHandler);
-        cipurseCardHandler.open();
     }
 
     public CardTransaction initCard(CardInfo cardInfo) throws CipurseException {
@@ -41,7 +49,6 @@ public class CCPCardReader {
         return storeTransaction(cardInfo, cardOperation, Constant.TRANSACTION_TYPE_CREDIT);
     }
     public CardTransaction credit(CardInfo cardInfo, CardOperation cardOperation) throws CipurseException {
-        initCommand();
         cipurseCardHandler.reset(COLD_RESET);
         cipurseOperational.selectMF();
         selectADF();
@@ -51,8 +58,7 @@ public class CCPCardReader {
 
     }
 
-    public boolean isCardInitialized(String walletId) throws CipurseException  {
-        initCommand();
+    public boolean isCardInitialized(String walletId) throws CipurseException {
         boolean isCardInitialized = true;
         try{
             cipurseCardHandler.reset(COLD_RESET);
@@ -146,7 +152,6 @@ public class CCPCardReader {
     }
 
     public void installApplication() throws CipurseException {
-        initCommand();
         cipurseCardHandler.reset(COLD_RESET );
         System.out.println("Format card...");
         cipurseAdministration.formatAll();
