@@ -14,8 +14,8 @@ public class CardFrame extends JFrame {
     public void showSuccessMessage() {
         JOptionPane.showMessageDialog(this, "Write Card Successful");
     }
-    public void showErrorMessage() {
-        JOptionPane.showMessageDialog(this, "Write Card Error", "Smartlink Card", JOptionPane.OK_OPTION);
+    public void showErrorMessage(String message) {
+        JOptionPane.showMessageDialog(this, "Write Card Error: " + message, "Smartlink Card", JOptionPane.OK_OPTION);
     }
     public boolean isUserAcceptFormatAndClearCardInfo() {
        int result = JOptionPane.showConfirmDialog(this, "Card will be formated. Do you want to continue?", "Warning", JOptionPane.YES_NO_OPTION);

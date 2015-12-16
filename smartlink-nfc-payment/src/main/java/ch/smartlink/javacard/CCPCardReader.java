@@ -6,6 +6,8 @@ import org.osptalliance.cipurse.ICommsChannel;
 import org.osptalliance.cipurse.ILogger;
 import org.osptalliance.cipurse.commands.*;
 
+import java.util.Calendar;
+
 public class CCPCardReader {
 
     private static final int COLD_RESET = 0;
@@ -30,11 +32,109 @@ public class CCPCardReader {
         cipurseCardHandler.open();
     }
 
-    public void initCard(CardInfo cardInfo) throws CipurseException {
+    public CardTransaction initCard(CardInfo cardInfo) throws CipurseException {
+
         installApplication();
+        cipurseCardHandler.reset(COLD_RESET);
         storeCardInfo(cardInfo);
+        CardOperation cardOperation = new CardOperation("Mobile", "Default", cardInfo.getBalance());
+        return storeTransaction(cardInfo, cardOperation, Constant.TRANSACTION_TYPE_CREDIT);
+    }
+    public CardTransaction credit(CardInfo cardInfo, CardOperation cardOperation) throws CipurseException {
+        initCommand();
+        cipurseCardHandler.reset(COLD_RESET);
+        cipurseOperational.selectMF();
+        selectADF();
+        cardInfo.setBalance(cardInfo.getBalance().add(cardOperation.getAmount()));
+        storeCardInfo(cardInfo);
+        return storeTransaction(cardInfo, cardOperation, Constant.TRANSACTION_TYPE_CREDIT);
+
     }
 
+    public boolean isCardInitialized(String walletId) throws CipurseException  {
+        initCommand();
+        boolean isCardInitialized = true;
+        try{
+            cipurseCardHandler.reset(COLD_RESET);
+            cipurseOperational.selectMF();
+            selectADF();
+            selectFileCardTransaction();
+            CardInfo cardInfo = getCardInfo();
+            isCardInitialized = cardInfo.getWalletId().equals(walletId);
+        } catch (CipurseException ex) {
+            if("6A 82".equals(ex.getMessage())) {
+                isCardInitialized = false;
+            } else {
+                throw  ex;
+            }
+        }
+
+        return isCardInitialized;
+    }
+
+    public CardTransaction credit(CardOperation cardOperation) throws CipurseException {
+        initCommand();
+        cipurseCardHandler.reset(COLD_RESET);
+        cipurseOperational.selectMF();
+        selectADF();
+        CardInfo cardInfo = getCardInfo();
+        cardInfo.setBalance(cardInfo.getBalance().add(cardOperation.getAmount()));
+        storeCardInfo(cardInfo);
+        return storeTransaction(cardInfo, cardOperation, Constant.TRANSACTION_TYPE_CREDIT);
+
+    }
+    public CardTransaction debit(CardOperation cardOperation) throws CipurseException {
+        initCommand();
+        cipurseCardHandler.reset(COLD_RESET);
+        cipurseOperational.selectMF();
+        selectADF();
+        CardInfo cardInfo = getCardInfo();
+        if(cardInfo.getBalance().compareTo(cardOperation.getAmount()) < 0) {
+            throw new CipurseException("1000");
+        }
+        cardInfo.setBalance(cardInfo.getBalance().subtract(cardOperation.getAmount()));
+        storeCardInfo(cardInfo);
+        return storeTransaction(cardInfo, cardOperation, Constant.TRANSACTION_TYPE_DEBIT);
+
+    }
+
+    private CardTransaction storeTransaction(CardInfo cardInfo, CardOperation cardOperation, String transactionType) throws CipurseException {
+        selectFileCardTransaction();
+        CardTransaction cardTransaction = new CardTransaction(
+                cardInfo.getWalletId(),
+                Calendar.getInstance().getTimeInMillis(),
+                MessageUtil.randomNumeric(Constant.LENGTH_TRANSACTION_ID),
+                MessageUtil.randomString(Constant.LENGTH_AUTHIRIZARION),
+                cardOperation.getLocation(),
+                cardOperation.getMerchant(),
+                cardOperation.getAmount(),
+                cardInfo.getBalance(),
+                cardInfo.getCurrency(),
+                transactionType
+
+        );
+        ByteArray response = cipurseOperational.appendRecord(new ByteArray(cardTransaction.toBytes()));
+        handleError(response);
+
+        return cardTransaction;
+    }
+
+
+    private CardInfo getCardInfo() throws CipurseException {
+        ByteArray response = cipurseOperational.selectFilebyFID(Constant.ID_FILE_CARD_INFO);
+        handleError(response);
+        response = cipurseOperational.readBinary((short)0, (short)Constant.LENGH_CARD_DATA_BIN);
+        handleError(response);
+        return CardInfo.parseData(response.subArray(0, Constant.LENGH_CARD_DATA_BIN).getBytes());
+    }
+    private void selectADF() throws CipurseException {
+        ByteArray response = cipurseOperational.selectFilebyAID(new ByteArray(Constant.ID_ADF_SMARTLINK_TICKET));
+        handleError(response);
+    }
+    private void selectFileCardTransaction() throws CipurseException {
+        ByteArray response = cipurseOperational.selectFilebyFID(Constant.ID_FILE_CARD_HISTORY);
+        handleError(response);
+    }
     private void storeCardInfo(CardInfo cardInfo) throws CipurseException {
         cipurseOperational.selectMF();
         ByteArray response = cipurseOperational.selectFilebyAID(new ByteArray(Constant.ID_ADF_SMARTLINK_TICKET));
@@ -47,6 +147,7 @@ public class CCPCardReader {
 
     public void installApplication() throws CipurseException {
         initCommand();
+        cipurseCardHandler.reset(COLD_RESET );
         System.out.println("Format card...");
         cipurseAdministration.formatAll();
         System.out.println("Select MF...");
@@ -128,7 +229,7 @@ public class CCPCardReader {
             System.out.println("-------------- Expected result does NOT MATCH --------------");
             System.out.println("-------------- Script Execution Terminated    --------------");
             System.out.println("************************************************************");
-            throw new CipurseException("Expected result does NOT MATCH");
+            throw new CipurseException(receivedStatus.getString());
         }
         return result;
     }

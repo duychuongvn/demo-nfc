@@ -18,16 +18,16 @@
       <dependency>
           <groupId>cipurse</groupId>
           <artifactId>CipurseCoreLibrary</artifactId>
-          <!--<systemPath>${basedir}\src\lib\CipurseCoreLibrary.jar</systemPath>-->
-          <!--<scope>system</scope>-->
+          <systemPath>${basedir}\src\lib\CipurseCoreLibrary.jar</systemPath>
+          <scope>system</scope>
           <version>2.2</version>
       </dependency>
       <dependency>
           <groupId>cipurse</groupId>
           <artifactId>CipursePluginImplementations</artifactId>
-          <!--<systemPath>${basedir}\src\lib\CipursePluginImplementations.jar</systemPath>-->
+          <systemPath>${basedir}\src\lib\CipursePluginImplementations.jar</systemPath>
           <version>2.2</version>
-          <!--<scope>system</scope>-->
+          <scope>system</scope>
       </dependency>
     <dependency>
       <groupId>junit</groupId>

@@ -10,8 +10,24 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Maven: cipurse:CipurseCoreLibrary:2.2" level="project" />
-    <orderEntry type="library" name="Maven: cipurse:CipursePluginImplementations:2.2" level="project" />
+    <orderEntry type="module-library">
+      <library name="Maven: cipurse:CipurseCoreLibrary:2.2">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/src/lib/CipurseCoreLibrary.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Maven: cipurse:CipursePluginImplementations:2.2">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/src/lib/CipursePluginImplementations.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:3.8.1" level="project" />
   </component>
 </module>

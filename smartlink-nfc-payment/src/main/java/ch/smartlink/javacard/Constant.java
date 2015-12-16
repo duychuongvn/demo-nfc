@@ -2,19 +2,25 @@ package ch.smartlink.javacard;
 
 public class Constant {
 
+	public static final String SPLITTER = ":::";
 	public static final int ID_FILE_MF = 0x3F00;
 	public static final int ID_FILE_INFO = 0x2FF7;
 	public static final int ID_FILE_LIST = 0x2FF1;
-	public static final int ID_FILE_USER_DATA = 0x3001;
-	public static final int ID_FILE_CARD_HISTROY = 0x3002;
-	public static final String ID_ADF_SMARTLINK_TICKET = "D2 76 00 00 04 15 02 00 00 03 00 01 01";
+	public static final int ID_FILE_ADF_SHORT = 0x5F01;
+	public static final int ID_FILE_CARD_INFO = 0x5F02;
+	public static final int ID_FILE_CARD_HISTORY = 0x5F03;
+	public static final String ID_ADF_SMARTLINK_TICKET = "DF 00 00 00 00 00 11 11";
 	
-	public static final int LENGH_USER_DATA_BIN = 64;
-	public static final int LENGH_USER_DATA_VALUE = 33;
-	public static final int LENGH_CARD_TRANSACTION_BIN = 47;
-	public static final int LENGH_CARD_TRANSACTION_VALUE = 60;
-	public static final int TOTAL_RECORD_CARD_TRANSACTION = 10;
-	
+	public static final int LENGH_CARD_DATA_BIN = 58;
+	public static final int LENGH_CARD_TRANSACTION_BIN = 184;
+	public static final int TOTAL_RECORD_CARD_TRANSACTION = 20;
+
+	public static final int LENGTH_AUTHIRIZARION = 9;
+	public static final int LENGTH_TRANSACTION_ID = 8;
+
+	public static final String TRANSACTION_TYPE_CREDIT = "0";
+	public static final String TRANSACTION_TYPE_DEBIT = "1";
+
 	
 	
 }
