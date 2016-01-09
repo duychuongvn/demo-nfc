@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="jcardsim-3.0.4-SNAPSHOT-android">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Application/lib/jcardsim-3.0.4-SNAPSHOT-android.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

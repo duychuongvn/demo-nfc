@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="E:\Work\chuonghd\myproject\anroid\learning\CardEmulation\Application\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\jars\libs\internal_impl-23.1.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="8716243bf04bae8d6c9ca94d27b9a9be7236f0a3">
+        <dex dex="E:\Work\chuonghd\myproject\anroid\learning\CardEmulation\Application\build\intermediates\pre-dexed\debug\internal_impl-23.1.0-c80d9c98df7876942e17d115c876cd2dcd8aa401.jar" />
+    </item>
+    <item
+        jar="E:\Work\chuonghd\myproject\anroid\learning\CardEmulation\Application\lib\jcardsim-3.0.4-SNAPSHOT-android.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="f168e4caa663ff4fefa1f9c22bfbed937a7167e4">
+        <dex dex="E:\Work\chuonghd\myproject\anroid\learning\CardEmulation\Application\build\intermediates\pre-dexed\debug\jcardsim-3.0.4-SNAPSHOT-android-82e6e5e63746f94b5a713aefb5eb6ffa94387fc8.jar" />
+    </item>
+    <item
+        jar="E:\Work\chuonghd\myproject\anroid\learning\CardEmulation\Application\build\intermediates\exploded-aar\com.android.support\support-v13\23.1.0\jars\libs\internal_impl-23.1.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="076c7d9e22cc325b8008ff799e0c06dfb8eefdf3">
+        <dex dex="E:\Work\chuonghd\myproject\anroid\learning\CardEmulation\Application\build\intermediates\pre-dexed\debug\internal_impl-23.1.0-b3084069cd1f3b349754848bc1fb093f663f82db.jar" />
+    </item>
+    <item
+        jar="E:\Work\chuonghd\myproject\anroid\learning\CardEmulation\Application\lib\host.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="875e0830f4c4819de58a02a3c2000342bf4dc11a">
+        <dex dex="E:\Work\chuonghd\myproject\anroid\learning\CardEmulation\Application\build\intermediates\pre-dexed\debug\host-f8c1d7e6f71c2d0e51b65ae7dba9f4773ff5cebf.jar" />
+    </item>
+    <item
+        jar="E:\Work\chuonghd\myproject\anroid\learning\CardEmulation\Application\build\intermediates\exploded-aar\com.android.support\cardview-v7\23.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="d96886efea7cc74fbb3abd0e3b51d5638fc57be0">
+        <dex dex="E:\Work\chuonghd\myproject\anroid\learning\CardEmulation\Application\build\intermediates\pre-dexed\debug\classes-da66bb201d3adfac7c845cebef02b451feec754f.jar" />
+    </item>
+    <item
+        jar="E:\Work\chuonghd\myproject\anroid\learning\CardEmulation\Application\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="ddde541c289c8b816a8f8fd6c325d80788c522a6">
+        <dex dex="E:\Work\chuonghd\myproject\anroid\learning\CardEmulation\Application\build\intermediates\pre-dexed\debug\classes-838a37eaaaab7700ffb358326b3b003ff591fba7.jar" />
+    </item>
+    <item
+        jar="E:\Work\chuonghd\myproject\anroid\learning\CardEmulation\Application\build\intermediates\exploded-aar\com.android.support\support-v13\23.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="1a57337a520bf40b9ad1e074cb780527dffa1aac">
+        <dex dex="E:\Work\chuonghd\myproject\anroid\learning\CardEmulation\Application\build\intermediates\pre-dexed\debug\classes-3e3f14e85023d43c2cb40d005d618b4372c72678.jar" />
+    </item>
+    <item
+        jar="E:\Work\chuonghd\myproject\anroid\learning\CardEmulation\Application\lib\CipurseCoreLibrary-2.2.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="9765142c3c2864aa6a9a558cce660ddb22a8e922">
+        <dex dex="E:\Work\chuonghd\myproject\anroid\learning\CardEmulation\Application\build\intermediates\pre-dexed\debug\CipurseCoreLibrary-2.2-710905e11e212fcad91fc70aa91e14c7c53aa851.jar" />
+    </item>
+    <item
+        jar="C:\Users\caoky\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.1.0\support-annotations-23.1.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="92e3fc113ec3ee36b64603a38857b95700025633">
+        <dex dex="E:\Work\chuonghd\myproject\anroid\learning\CardEmulation\Application\build\intermediates\pre-dexed\debug\support-annotations-23.1.0-214be2c7e0b8e434ddfb5e2f2b68f0f3b6c86341.jar" />
+    </item>
+
+</items>

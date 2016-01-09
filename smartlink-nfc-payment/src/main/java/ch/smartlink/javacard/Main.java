@@ -7,6 +7,7 @@ import javax.swing.*;
 
 import ch.smartlink.javacard.hrs.*;
 import ch.smartlink.javacard.hrs.CardInfo;
+import ch.smartlink.javacard.zeitcontrol.ZCScriptV3;
 import org.osptalliance.cipurse.CipurseException;
 import org.osptalliance.cipurse.impl.AES;
 import org.osptalliance.cipurse.impl.CommsChannel;
@@ -30,6 +31,14 @@ public class Main {
 //    }
 
 
+    private static void readZCScriptV3(String readerName) throws CipurseException {
+        ZCScriptV3 zcScriptV3 = new ZCScriptV3(new CommsChannel(readerName), new AES(), new Logger());
+        System.out.println("=============== Read ADF 2============");
+        zcScriptV3.readAdf1();
+        System.out.println("=============== Read ADF 2============");
+        zcScriptV3.readAdf2();
+    }
+
     private static void createHrsCard(String readerName) throws CipurseException {
         HrsCardCreator hrsCardCreator = new HrsCardCreator(new CommsChannel(readerName), new AES(), new Logger());
         ch.smartlink.javacard.hrs.CardInfo cardInfo = new CardInfo("1234558455", "21", "201501", false);
@@ -37,7 +46,17 @@ public class Main {
 
         CardInfo data = hrsCardCreator.getCardInfo();
         System.out.println(String.format("Wallet [%s] - Door [%s] - Exp [%s] - Locked [%s]", data.getWalletId(), data.getDoorId(), data.getExpiryDate(), data.isLocked()  ));
-//        hrsCardCreator.restoreCard();
+        hrsCardCreator.restoreCard();
+    }
+    private static void createHrsOberthurCard(String readerName) throws CipurseException {
+        HrsOberthurCardCreator hrsCardCreator = new HrsOberthurCardCreator(new CommsChannel(readerName), new AES(), new Logger());
+       hrsCardCreator.restoreCard();
+        ch.smartlink.javacard.hrs.CardInfo cardInfo = new CardInfo("1234558455", "21", "201501", false);
+        hrsCardCreator.storeRoomInfo(cardInfo);
+
+        CardInfo data = hrsCardCreator.getCardInfo();
+        System.out.println(String.format("Wallet [%s] - Door [%s] - Exp [%s] - Locked [%s]", data.getWalletId(), data.getDoorId(), data.getExpiryDate(), data.isLocked()  ));
+        hrsCardCreator.restoreCard();
     }
     private static void createPaymentCard(String readerName) throws CipurseException {
 
@@ -81,6 +100,8 @@ public class Main {
                //     createCcpCard(readerName);
                   //  createCardSM(readerName);
                     createHrsCard(readerName);
+                 //   readZCScriptV3(readerName);
+                 //   createHrsOberthurCard(readerName);
                     cardFrame.showSuccessMessage();
                 }
             }

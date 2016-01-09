@@ -1,0 +1,89 @@
+-- Merging decision tree log ---
+manifest
+ADDED from AndroidManifest.xml:18:1
+	xmlns:android
+		ADDED from AndroidManifest.xml:18:11
+	package
+		ADDED from AndroidManifest.xml:19:5
+	android:versionName
+		ADDED from AndroidManifest.xml:21:5
+	android:versionCode
+		ADDED from AndroidManifest.xml:20:5
+		INJECTED from AndroidManifest.xml:0:0
+		INJECTED from AndroidManifest.xml:0:0
+uses-feature#android.hardware.nfc.hce
+ADDED from AndroidManifest.xml:25:5
+	android:required
+		ADDED from AndroidManifest.xml:25:59
+	android:name
+		ADDED from AndroidManifest.xml:25:19
+uses-permission#android.permission.NFC
+ADDED from AndroidManifest.xml:26:5
+	android:name
+		ADDED from AndroidManifest.xml:26:22
+application
+ADDED from AndroidManifest.xml:28:5
+MERGED from com.android.support:support-v4:23.1.0:22:5
+MERGED from com.android.support:support-v13:23.1.0:22:5
+MERGED from com.android.support:support-v4:23.1.0:22:5
+MERGED from com.android.support:cardview-v7:23.1.0:22:5
+	android:label
+		ADDED from AndroidManifest.xml:29:9
+	android:allowBackup
+		ADDED from AndroidManifest.xml:28:18
+	android:icon
+		ADDED from AndroidManifest.xml:30:9
+	android:theme
+		ADDED from AndroidManifest.xml:31:9
+activity#com.example.android.cardemulation.MainActivity
+ADDED from AndroidManifest.xml:34:9
+	android:label
+		ADDED from AndroidManifest.xml:35:19
+	android:name
+		ADDED from AndroidManifest.xml:34:19
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from AndroidManifest.xml:36:13
+action#android.intent.action.MAIN
+ADDED from AndroidManifest.xml:37:17
+	android:name
+		ADDED from AndroidManifest.xml:37:25
+category#android.intent.category.LAUNCHER
+ADDED from AndroidManifest.xml:38:17
+	android:name
+		ADDED from AndroidManifest.xml:38:27
+service#com.example.android.cardemulation.CardService
+ADDED from AndroidManifest.xml:44:9
+	android:exported
+		ADDED from AndroidManifest.xml:45:18
+	android:permission
+		ADDED from AndroidManifest.xml:46:18
+	android:name
+		ADDED from AndroidManifest.xml:44:18
+intent-filter#android.intent.category.DEFAULT+android.nfc.cardemulation.action.HOST_APDU_SERVICE
+ADDED from AndroidManifest.xml:48:13
+action#android.nfc.cardemulation.action.HOST_APDU_SERVICE
+ADDED from AndroidManifest.xml:49:17
+	android:name
+		ADDED from AndroidManifest.xml:49:25
+category#android.intent.category.DEFAULT
+ADDED from AndroidManifest.xml:50:17
+	android:name
+		ADDED from AndroidManifest.xml:50:27
+meta-data#android.nfc.cardemulation.host_apdu_service
+ADDED from AndroidManifest.xml:54:13
+	android:resource
+		ADDED from AndroidManifest.xml:55:24
+	android:name
+		ADDED from AndroidManifest.xml:54:24
+uses-sdk
+INJECTED from AndroidManifest.xml:0:0 reason: use-sdk injection requested
+MERGED from com.android.support:support-v4:23.1.0:20:5
+MERGED from com.android.support:support-v13:23.1.0:20:5
+MERGED from com.android.support:support-v4:23.1.0:20:5
+MERGED from com.android.support:cardview-v7:23.1.0:20:5
+	android:targetSdkVersion
+		INJECTED from AndroidManifest.xml:0:0
+		INJECTED from AndroidManifest.xml:0:0
+	android:minSdkVersion
+		INJECTED from AndroidManifest.xml:0:0
+		INJECTED from AndroidManifest.xml:0:0

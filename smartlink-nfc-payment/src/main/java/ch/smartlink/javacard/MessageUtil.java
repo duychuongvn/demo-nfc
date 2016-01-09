@@ -21,6 +21,7 @@ public class MessageUtil {
 
     public static String leftZeroPadding(String value, int len) {
         String data = value;
+
         while (data.length() < len) {
             data = "0" + data;
         }

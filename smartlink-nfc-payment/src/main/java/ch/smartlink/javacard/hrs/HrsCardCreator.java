@@ -101,10 +101,11 @@ public class HrsCardCreator {
         cipurseCardHandler.secureMessagingIndicator = CipurseCardHandler.SMI_MAC_MAC;
         response = cipurseOperational.selectFilebyFID(ID_EF_CARD_INFO_FID);
 
+        MessageUtil.handleError(response);
 
         cipurseCardHandler.secureMessagingFlag = true;
         cipurseCardHandler.secureMessagingIndicator = CipurseCardHandler.SMI_ENC_ENC_LE_PRESENT;
-        response = cipurseOperational.readBinary((short)0, (short)0);
+        response = cipurseOperational.readBinary((short)0, (short)1);
         MessageUtil.handleError(response);
         ByteArray data =  response.subArray(0, CardInfo.FILE_LENGTH);
         return CardInfo.deserialize(data.getBytes());
