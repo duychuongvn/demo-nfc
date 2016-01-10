@@ -248,19 +248,19 @@ public class CipurseCrypto implements ISO7816{
      */
 	public byte[] getPlainSMCommand(byte[] command, byte SMI) throws CipurseException {
 		eCaseType orgCaseType =Utility.getCaseType(command);
-
-
-
-		// check allowed value for Lc
-		if (orgCaseType == eCaseType.CASE_4) {
-			if (((short)((command[CipurseConstant.OFFSET_LC]&0x00FF))) > CipurseConstant.PLAIN_MAX_LC_WITHLE) {
-				throw new CipurseException(CipurseConstant.LC_GRT_ALLOWED);
-			}
-		} else if (orgCaseType == eCaseType.CASE_3) {
-			if (((short)((command[CipurseConstant.OFFSET_LC]&0x00FF))) > CipurseConstant.PLAIN_MAX_LC_WITHOUTLE) {
-				throw new CipurseException(CipurseConstant.LC_GRT_ALLOWED);
-			}
-		}
+//
+//
+//
+//		// check allowed value for Lc
+//		if (orgCaseType == eCaseType.CASE_4) {
+//			if (((short)((command[CipurseConstant.OFFSET_LC]&0x00FF))) > CipurseConstant.PLAIN_MAX_LC_WITHLE) {
+//				throw new CipurseException(CipurseConstant.LC_GRT_ALLOWED);
+//			}
+//		} else if (orgCaseType == eCaseType.CASE_3) {
+//			if (((short)((command[CipurseConstant.OFFSET_LC]&0x00FF))) > CipurseConstant.PLAIN_MAX_LC_WITHOUTLE) {
+//				throw new CipurseException(CipurseConstant.LC_GRT_ALLOWED);
+//			}
+//		}
 		// Original command APDU:
 		// - CLA - INS - P1 - P2 - {Lc} - {DATA} - {Le}
 		// Transferred command SM-APDU:
@@ -268,15 +268,17 @@ public class CipurseCrypto implements ISO7816{
 		// The Le'field is not present for the case where in the
 		// original APDU the Le field is not present and
 		// the PCD requests the PICC response in SM_PLAIN.
-		byte[] smCommand = getOSPTModifiedCommand(command, SMI);
+//		byte[] smCommand = getOSPTModifiedCommand(command, SMI);
 		// Calculate virtual MAC and generate new frame key
+		byte[] smCommand = new byte[command.length];
+		System.arraycopy(command, 0, smCommand, 0, command.length);
 		byte[] dataPadded = Padding.schemeISO9797M2(
 				smCommand, CipurseConstant.AES_BLOCK_LENGTH);
 		generateMAC(dataPadded);
 
+		return smCommand;
 		// set Le' only if original Le not present and request in plain
 		// otherwise Le' is always present
-		return getLeDashCommand(smCommand, orgCaseType, SMI);
 	}
 
 	/**
@@ -326,116 +328,73 @@ public class CipurseCrypto implements ISO7816{
 	 */
 	private byte[] getENCedCommand(byte[] command, byte SMI) throws CipurseException {
 
-		eCaseType orgCaseType = Utility.getCaseType(command);
+//		eCaseType orgCaseType = Utility.getCaseType(command);
+//
+//		// check allowed value for Lc
+//		if ((orgCaseType == eCaseType.CASE_4)
+//				|| (orgCaseType == eCaseType.CASE_3)) {
+//			if ((short)((command[CipurseConstant.OFFSET_LC]&0x00FF)) > CipurseConstant.ENC_MAX_LC) {
+//				throw new CipurseException(CipurseConstant.LC_GRT_ALLOWED);
+//			}
+//		}
 
-		// check allowed value for Lc
-		if ((orgCaseType == eCaseType.CASE_4)
-				|| (orgCaseType == eCaseType.CASE_3)) {
-			if ((short)((command[CipurseConstant.OFFSET_LC]&0x00FF)) > CipurseConstant.ENC_MAX_LC) {
-				throw new CipurseException(CipurseConstant.LC_GRT_ALLOWED);
-			}
-		}
-
-		/*
-		 * Original command APDU: - CLA - INS - P1 - P2 - {Lc} - {DATA} - {Le}
-		 * Transferred ENC'ed command SM-APDU: - CLA' - INS - P1 - P2 - Lc' -
-		 * SMI - n*CRYPTOGRAM- {Le} - {Le'}. The value for Lc' includes SMI,
-		 * n*CRYPTOGRAM and {Le}.
-		 *
-		 * The n CRYPTOGRAM(s) of each 16 byte length are calculated from
-		 * 16-byte blocks of the following composition of elements: - CLA' - INS -
-		 * P1 - P2 - {DATA} - MIC - padding The MIC of 4 byte length is
-		 * calculated over the following composition of elements: - CLA' - INS -
-		 * P1 - P2 - Lc' - SMI - {DATA} - {Le} - {padding with 00H up to k * 4
-		 * byte}
-		 */
+//		{DATA} - SW1 - SW2
+//		Transferred ENC’ed response SM-APDU:
+//		• n*CRYPTOGRAM - SW1 - SW2
+//		The n CRYPTOGRAM(s) of 16 byte length are calculated from 16-byte blocks of the following composition of
+//		elements:
+//		• {DATA} - MIC - SW1 - SW2 - padding
 		byte[] orgLe = null;
 		byte[] orgCommandData = null;
 
-		if ((orgCaseType == eCaseType.CASE_3)
-				|| (orgCaseType == eCaseType.CASE_4)) {
-			orgCommandData = new byte[(short)(command[CipurseConstant.OFFSET_LC] & 0x00FF)];
-			System.arraycopy(command, CipurseConstant.OFFSET_CMD_DATA,
-					orgCommandData, 0, orgCommandData.length);
-		}
+//		if ((orgCaseType == eCaseType.CASE_3)
+//				|| (orgCaseType == eCaseType.CASE_4)) {
+//			orgCommandData = new byte[(short)(command[CipurseConstant.OFFSET_LC] & 0x00FF)];
+//			System.arraycopy(command, CipurseConstant.OFFSET_CMD_DATA,
+//					orgCommandData, 0, orgCommandData.length);
+//		}
 
-		if ((orgCaseType == eCaseType.CASE_2)
-				|| (orgCaseType == eCaseType.CASE_4)) {
-			orgLe = new byte[1];
-			orgLe[0] = command[command.length - 1];
-		}
+//		if ((orgCaseType == eCaseType.CASE_2)
+//				|| (orgCaseType == eCaseType.CASE_4)) {
+//			orgLe = new byte[1];
+//			orgLe[0] = command[command.length - 1];
+//		}
 
-		byte[] smCommand = getOSPTModifiedCommand(command, SMI);
+//		byte[] smCommand = getOSPTModifiedCommand(command, SMI);
 
 		// calculate length of n*Cryptgram after padding
-		// header-Lc(=4) + original data + MIC-4
-		byte[] nCryptogramPadded = null;
-		if (orgCommandData != null) {
-			nCryptogramPadded = new byte[4 + orgCommandData.length
-					+ CipurseConstant.MIC_LENGH];
-		} else {
-			nCryptogramPadded = new byte[4 + CipurseConstant.MIC_LENGH];
-		}
-		nCryptogramPadded = Padding.schemeISO9797M2(nCryptogramPadded,
-				CipurseConstant.AES_BLOCK_LENGTH);
-		int nCryptogramPaddedLen = nCryptogramPadded.length;
+
 
 		// prepare data for MIC calculation
 		// - CLA' - INS - P1 - P2 - Lc' - SMI - {DATA} - {Le}
-		byte[] dataForMIC = new byte[smCommand.length];
-		System.arraycopy(smCommand, 0, dataForMIC, 0, dataForMIC.length);
-
-		// Lc' includes SMI, n*CRYPTOGRAM and {Le}
-		if (orgLe != null) {
-			// SMI+n*Cryptgram+Le
-			dataForMIC[CipurseConstant.OFFSET_LC] = (byte) (1 + nCryptogramPaddedLen + 1);
-		} else {
-			// SMI+n*Cryptgram
-			dataForMIC[CipurseConstant.OFFSET_LC] = (byte) (1 + nCryptogramPaddedLen);
-		}
+		byte[] dataForMIC = new byte[command.length];
+		System.arraycopy(command, 0, dataForMIC, 0, dataForMIC.length);
 		byte[] mic = computeMIC(dataForMIC);
 		logger.log(ILogger.INFO_MESSAGE, "MIC", mic);
 
-		// prepare data for ciphering
-		// CLA' - INS - P1 - P2 - {DATA} - MIC - padding
-		System.arraycopy(smCommand, 0, nCryptogramPadded, 0, 4);
+		String stringdataForMIC = MessageUtil.byteArrayToHexString(dataForMIC);
+		String stringMIC = MessageUtil.byteArrayToHexString(mic);
+		byte[] smCommand = new byte[command.length + CipurseConstant.MIC_LENGH];
+		System.arraycopy(command, 0, smCommand, 0, command.length - 2);
+		System.arraycopy(mic, 0, smCommand, command.length - 2, 4);
+		System.arraycopy(command, command.length - 2, smCommand, smCommand.length - 2, 2);
 
-		int micOffset = 4;
-		if (orgCommandData != null) {
-			System.arraycopy(orgCommandData, 0, nCryptogramPadded, 4,orgCommandData.length);
-			micOffset += orgCommandData.length;
-		}
-		System.arraycopy(mic, 0, nCryptogramPadded, micOffset, mic.length);
+		String stringCmd = MessageUtil.byteArrayToHexString(smCommand);
 
+		// header-Lc(=4) + original data + MIC-4
+		byte[] nCryptogramPadded =   Padding.schemeISO9797M2(smCommand,CipurseConstant.AES_BLOCK_LENGTH);
+
+		String stringPad = MessageUtil.byteArrayToHexString(nCryptogramPadded);
+		int nCryptogramPaddedLen = nCryptogramPadded.length;
 		// nCryptogramPadded is already padde, just encrypt
 		byte[] nCryptogramCipher = generateCipher(nCryptogramPadded, true);
 
-		int finalCDataLen = 0;
-		byte[] finalCData = null;
-		if (orgLe != null) {
-			finalCDataLen = nCryptogramCipher.length + 2;
-			finalCData = new byte[finalCDataLen];
-			finalCData[0] = SMI;
-			System.arraycopy(nCryptogramCipher, 0, finalCData, 1,
-					nCryptogramCipher.length);
-			finalCData[finalCData.length - 1] = orgLe[0];
-		} else {
-			finalCDataLen = 1 + nCryptogramCipher.length;
-			finalCData = new byte[finalCDataLen];
-			finalCData[0] = SMI;
-			System.arraycopy(nCryptogramCipher, 0, finalCData, 1,
-					nCryptogramCipher.length);
-		}
+		byte[] response = new byte[nCryptogramCipher.length +2];
+		System.arraycopy(nCryptogramCipher, 0,response, 0, nCryptogramCipher.length);
+		System.arraycopy(command, command.length -2,response, response.length-2, 2);
 
-		byte[] encryptedCmd = new byte[5 + finalCData.length];
-		System.arraycopy(smCommand, 0, encryptedCmd, 0, 4);
-		System.arraycopy(finalCData, 0, encryptedCmd,
-				CipurseConstant.OFFSET_CMD_DATA, finalCData.length);
-		encryptedCmd[CipurseConstant.OFFSET_LC] = (byte) (finalCData.length);
-
-		// set Le' only if original Le not present and request in plain
-		// otherwise Le' is always present
-		return getLeDashCommand(encryptedCmd, orgCaseType, SMI);
+		String stringRes = MessageUtil.byteArrayToHexString(response);
+		return  response;
 	}
 
 	/**
