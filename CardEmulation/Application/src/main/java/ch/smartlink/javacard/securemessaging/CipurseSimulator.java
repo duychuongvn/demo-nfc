@@ -26,7 +26,7 @@ public class CipurseSimulator extends SimulatorRuntime {
         response = super.transmitCommand(command);
         if(applet instanceof HrsApplet && isSecureMessage) {
             HrsApplet hrsApplet = (HrsApplet) applet;
-            return hrsApplet.wrapResponse(response, SMI);
+            response = hrsApplet.wrapResponse(response, SMI);
         }
 
         return response;

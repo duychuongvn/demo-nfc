@@ -5,61 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="19b6b0e1-fef9-4aba-baec-5189f0847b6f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/crypto/CipurseConstant.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/crypto/CipurseCrypto.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/securemessaging/CipurseSimulator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/crypto/Padding.java" />
-      <change type="DELETED" beforePath="E:\Work\chuonghd\myproject\cipurse-research\android-nfc-payment-demo\demo-nfc\CardEmulation\.idea\libraries\CipurseCoreLibrary_2_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="E:\Work\chuonghd\myproject\cipurse-research\android-nfc-payment-demo\demo-nfc\CardEmulation\.idea\libraries\cardview_v7_23_1_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="E:\Work\chuonghd\myproject\cipurse-research\android-nfc-payment-demo\demo-nfc\CardEmulation\.idea\libraries\host.xml" afterPath="" />
-      <change type="DELETED" beforePath="E:\Work\chuonghd\myproject\cipurse-research\android-nfc-payment-demo\demo-nfc\CardEmulation\.idea\libraries\jcardsim_3_0_4_SNAPSHOT_android.xml" afterPath="" />
-      <change type="DELETED" beforePath="E:\Work\chuonghd\myproject\cipurse-research\android-nfc-payment-demo\demo-nfc\CardEmulation\.idea\libraries\support_annotations_23_1_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="E:\Work\chuonghd\myproject\cipurse-research\android-nfc-payment-demo\demo-nfc\CardEmulation\.idea\libraries\support_v13_23_1_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="E:\Work\chuonghd\myproject\cipurse-research\android-nfc-payment-demo\demo-nfc\CardEmulation\.idea\libraries\support_v4_23_1_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="E:\Work\chuonghd\myproject\cipurse-research\android-nfc-payment-demo\demo-nfc\CardEmulation\Application\build\intermediates\pre-dexed\debug\CipurseCoreLibrary-2.2-710905e11e212fcad91fc70aa91e14c7c53aa851.jar" afterPath="" />
-      <change type="DELETED" beforePath="E:\Work\chuonghd\myproject\cipurse-research\android-nfc-payment-demo\demo-nfc\CardEmulation\Application\build\intermediates\pre-dexed\debug\classes-3e3f14e85023d43c2cb40d005d618b4372c72678.jar" afterPath="" />
-      <change type="DELETED" beforePath="E:\Work\chuonghd\myproject\cipurse-research\android-nfc-payment-demo\demo-nfc\CardEmulation\Application\build\intermediates\pre-dexed\debug\classes-838a37eaaaab7700ffb358326b3b003ff591fba7.jar" afterPath="" />
-      <change type="DELETED" beforePath="E:\Work\chuonghd\myproject\cipurse-research\android-nfc-payment-demo\demo-nfc\CardEmulation\Application\build\intermediates\pre-dexed\debug\classes-da66bb201d3adfac7c845cebef02b451feec754f.jar" afterPath="" />
-      <change type="DELETED" beforePath="E:\Work\chuonghd\myproject\cipurse-research\android-nfc-payment-demo\demo-nfc\CardEmulation\Application\build\intermediates\pre-dexed\debug\host-f8c1d7e6f71c2d0e51b65ae7dba9f4773ff5cebf.jar" afterPath="" />
-      <change type="DELETED" beforePath="E:\Work\chuonghd\myproject\cipurse-research\android-nfc-payment-demo\demo-nfc\CardEmulation\Application\build\intermediates\pre-dexed\debug\internal_impl-23.1.0-b3084069cd1f3b349754848bc1fb093f663f82db.jar" afterPath="" />
-      <change type="DELETED" beforePath="E:\Work\chuonghd\myproject\cipurse-research\android-nfc-payment-demo\demo-nfc\CardEmulation\Application\build\intermediates\pre-dexed\debug\internal_impl-23.1.0-c80d9c98df7876942e17d115c876cd2dcd8aa401.jar" afterPath="" />
-      <change type="DELETED" beforePath="E:\Work\chuonghd\myproject\cipurse-research\android-nfc-payment-demo\demo-nfc\CardEmulation\Application\build\intermediates\pre-dexed\debug\jcardsim-3.0.4-SNAPSHOT-android-82e6e5e63746f94b5a713aefb5eb6ffa94387fc8.jar" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/com/example/android/cardemulation/AccountStorage.class" afterPath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/com/example/android/cardemulation/AccountStorage.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/outputs/apk/Application-debug-unaligned.apk" afterPath="$PROJECT_DIR$/Application/build/outputs/apk/Application-debug-unaligned.apk" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/outputs/apk/Application-debug.apk" afterPath="$PROJECT_DIR$/Application/build/outputs/apk/Application-debug.apk" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/com/example/android/cardemulation/CardService.class" afterPath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/com/example/android/cardemulation/CardService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/ch/smartlink/javacard/CipurseSecureMessage.class" afterPath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/ch/smartlink/javacard/CipurseSecureMessage.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/ch/smartlink/javacard/crypto/CipurseCrypto$1.class" afterPath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/ch/smartlink/javacard/crypto/CipurseCrypto$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/ch/smartlink/javacard/crypto/CipurseCrypto.class" afterPath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/ch/smartlink/javacard/crypto/CipurseCrypto.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/ch/smartlink/javacard/securemessaging/CipurseSimulator.class" afterPath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/ch/smartlink/javacard/securemessaging/CipurseSimulator.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/ch/smartlink/javacard/HrsApplet.class" afterPath="$PROJECT_DIR$/Application/build/intermediates/classes/debug/ch/smartlink/javacard/HrsApplet.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.5/taskArtifacts/cache.properties.lock" afterPath="$PROJECT_DIR$/.gradle/2.5/taskArtifacts/cache.properties.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/dex/debug/classes.dex" afterPath="$PROJECT_DIR$/Application/build/intermediates/dex/debug/classes.dex" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.5/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/2.5/taskArtifacts/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.5/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/2.5/taskArtifacts/fileSnapshots.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/gradle_project_sync_data.bin" afterPath="$PROJECT_DIR$/build/intermediates/gradle_project_sync_data.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.5/taskArtifacts/outputFileStates.bin" afterPath="$PROJECT_DIR$/.gradle/2.5/taskArtifacts/outputFileStates.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/resources/resources-debug-androidTest.ap_" afterPath="$PROJECT_DIR$/Application/build/intermediates/resources/resources-debug-androidTest.ap_" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/resources/resources-debug.ap_" afterPath="$PROJECT_DIR$/Application/build/intermediates/resources/resources-debug.ap_" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.5/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/2.5/taskArtifacts/taskArtifacts.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/src/main/java/com/example/android/cardemulation/AccountStorage.java" afterPath="$PROJECT_DIR$/Application/src/main/java/com/example/android/cardemulation/AccountStorage.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/src/main/java/com/example/android/cardemulation/CardService.java" afterPath="$PROJECT_DIR$/Application/src/main/java/com/example/android/cardemulation/CardService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/CipurseSecureMessage.java" afterPath="$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/CipurseSecureMessage.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/crypto/CipurseCrypto.java" afterPath="$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/crypto/CipurseCrypto.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/securemessaging/CipurseSimulator.java" afterPath="$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/securemessaging/CipurseSimulator.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/HrsApplet.java" afterPath="$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/HrsApplet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/res/debug/layout/activity_main.xml" afterPath="$PROJECT_DIR$/Application/build/intermediates/res/debug/layout/activity_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/res/debug/layout-w720dp/activity_main.xml" afterPath="$PROJECT_DIR$/Application/build/intermediates/res/debug/layout-w720dp/activity_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/res/debug/xml/aid_list.xml" afterPath="$PROJECT_DIR$/Application/build/intermediates/res/debug/xml/aid_list.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" afterPath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/local.properties" afterPath="$PROJECT_DIR$/local.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/res/debug/menu/main.xml" afterPath="$PROJECT_DIR$/Application/build/intermediates/res/debug/menu/main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/res/debug/layout/main_fragment.xml" afterPath="$PROJECT_DIR$/Application/build/intermediates/res/debug/layout/main_fragment.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/incremental/mergeAssets/androidTest/debug/merger.xml" afterPath="$PROJECT_DIR$/Application/build/intermediates/incremental/mergeAssets/androidTest/debug/merger.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/incremental/mergeAssets/debug/merger.xml" afterPath="$PROJECT_DIR$/Application/build/intermediates/incremental/mergeAssets/debug/merger.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/incremental/mergeResources/androidTest/debug/merger.xml" afterPath="$PROJECT_DIR$/Application/build/intermediates/incremental/mergeResources/androidTest/debug/merger.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/incremental/mergeResources/debug/merger.xml" afterPath="$PROJECT_DIR$/Application/build/intermediates/incremental/mergeResources/debug/merger.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/res/debug/values-sw600dp/values-sw600dp.xml" afterPath="$PROJECT_DIR$/Application/build/intermediates/res/debug/values-sw600dp/values-sw600dp.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/res/debug/values-v11/values-v11.xml" afterPath="$PROJECT_DIR$/Application/build/intermediates/res/debug/values-v11/values-v11.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/res/debug/values-v21/values-v21.xml" afterPath="$PROJECT_DIR$/Application/build/intermediates/res/debug/values-v21/values-v21.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/build/intermediates/res/debug/values/values.xml" afterPath="$PROJECT_DIR$/Application/build/intermediates/res/debug/values/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="CardEmulation.iws" />
@@ -95,11 +54,11 @@
       <file leaf-file-name="HrsApplet.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/HrsApplet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.19402985">
-              <caret line="439" column="47" selection-start-line="439" selection-start-column="47" selection-end-line="439" selection-end-column="47" />
+            <state vertical-scroll-proportion="0.4971591">
+              <caret line="319" column="0" selection-start-line="319" selection-start-column="0" selection-end-line="319" selection-end-column="0" />
               <folding>
-                <element signature="e#13537#13538#0" expanded="true" />
-                <element signature="e#13580#13581#0" expanded="true" />
+                <element signature="e#13636#13637#0" expanded="true" />
+                <element signature="e#13679#13680#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -108,29 +67,21 @@
       <file leaf-file-name="Util.class" pinned="false" current-in-tab="false">
         <entry file="jar://$PROJECT_DIR$/Application/lib/jcardsim-3.0.4-SNAPSHOT-android.jar!/javacard/framework/Util.class">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.9259257">
+            <state vertical-scroll-proportion="-10.925926">
               <caret line="66" column="0" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="APDU.class" pinned="false" current-in-tab="false">
-        <entry file="jar://$PROJECT_DIR$/Application/lib/jcardsim-3.0.4-SNAPSHOT-android.jar!/javacard/framework/APDU.class">
+      <file leaf-file-name="CipurseCrypto.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/crypto/CipurseCrypto.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.5555553">
-              <caret line="195" column="42" selection-start-line="195" selection-start-column="42" selection-end-line="195" selection-end-column="42" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SimulatorRuntime.class" pinned="false" current-in-tab="false">
-        <entry file="jar://$PROJECT_DIR$/Application/lib/jcardsim-3.0.4-SNAPSHOT-android.jar!/com/licel/jcardsim/base/SimulatorRuntime.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.148148">
-              <caret line="364" column="0" selection-start-line="364" selection-start-column="0" selection-end-line="364" selection-end-column="0" />
-              <folding />
+            <state vertical-scroll-proportion="-6.148148">
+              <caret line="564" column="0" selection-start-line="564" selection-start-column="0" selection-end-line="564" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -139,7 +90,7 @@
         <entry file="file://$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/securemessaging/CipurseSimulator.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+              <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -151,7 +102,7 @@
         <entry file="file://$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/CipurseSecureMessage.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="88" column="5" selection-start-line="88" selection-start-column="5" selection-end-line="88" selection-end-column="5" />
+              <caret line="96" column="0" selection-start-line="96" selection-start-column="0" selection-end-line="96" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -159,24 +110,15 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CipurseCrypto.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/crypto/CipurseCrypto.java">
+      <file leaf-file-name="BaseBundle.class" pinned="false" current-in-tab="false">
+        <entry file="jar://$USER_HOME$/AppData/Local/Android/sdk/platforms/android-23/android.jar!/android/os/BaseBundle.class">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.148148">
-              <caret line="113" column="0" selection-start-line="113" selection-start-column="0" selection-end-line="113" selection-end-column="0" />
+            <state vertical-scroll-proportion="-2.5555556">
+              <caret line="64" column="34" selection-start-line="64" selection-start-column="34" selection-end-line="64" selection-end-column="34" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#1452#1453#0" expanded="true" />
+                <element signature="e#1503#1504#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AccountStorage.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Application/src/main/java/com/example/android/cardemulation/AccountStorage.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="51" column="91" selection-start-line="51" selection-start-column="91" selection-end-line="51" selection-end-column="91" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -185,7 +127,7 @@
         <entry file="file://$PROJECT_DIR$/Application/src/main/java/com/example/android/cardemulation/CardService.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="119" column="0" selection-start-line="119" selection-start-column="0" selection-end-line="119" selection-end-column="0" />
+              <caret line="132" column="0" selection-start-line="132" selection-start-column="0" selection-end-line="132" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -1587,8 +1529,8 @@
         <option value="$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/crypto/Padding.java" />
         <option value="$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/crypto/CipurseConstant.java" />
         <option value="$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/CipurseSecureMessage.java" />
-        <option value="$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/crypto/CipurseCrypto.java" />
         <option value="$PROJECT_DIR$/Application/src/main/java/com/example/android/cardemulation/CardService.java" />
+        <option value="$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/crypto/CipurseCrypto.java" />
         <option value="$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/securemessaging/CipurseSimulator.java" />
         <option value="$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/HrsApplet.java" />
       </list>
@@ -1803,6 +1745,28 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="securemessaging" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CardEmulation" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Application" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="javacard" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="crypto" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -2029,23 +1993,23 @@
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32879046" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6013629" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3321976" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.056218058" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.039182283" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.35264054" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.31164902" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.040090773" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32879046" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -2081,59 +2045,101 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/crypto/CipurseCrypto.java</url>
-          <line>309</line>
-          <properties />
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/CipurseSecureMessage.java</url>
-          <line>96</line>
-          <properties />
-          <option name="timeStamp" value="16" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/crypto/CipurseCrypto.java</url>
-          <line>97</line>
-          <properties />
-          <option name="timeStamp" value="17" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/crypto/CipurseCrypto.java</url>
-          <line>113</line>
-          <properties />
-          <option name="timeStamp" value="18" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/crypto/CipurseCrypto.java</url>
-          <line>127</line>
-          <properties />
-          <option name="timeStamp" value="22" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/crypto/CipurseCrypto.java</url>
-          <line>482</line>
+          <line>487</line>
           <properties />
           <option name="timeStamp" value="26" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/crypto/CipurseCrypto.java</url>
-          <line>570</line>
+          <line>563</line>
           <properties />
-          <option name="timeStamp" value="28" />
+          <option name="timeStamp" value="40" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/crypto/CipurseCrypto.java</url>
+          <line>134</line>
+          <properties />
+          <option name="timeStamp" value="44" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/crypto/CipurseCrypto.java</url>
+          <line>128</line>
+          <properties />
+          <option name="timeStamp" value="46" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/HrsApplet.java</url>
-          <line>439</line>
+          <line>163</line>
           <properties />
-          <option name="timeStamp" value="39" />
+          <option name="timeStamp" value="47" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/crypto/CipurseCrypto.java</url>
+          <line>508</line>
+          <properties />
+          <option name="timeStamp" value="49" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/crypto/CipurseCrypto.java</url>
+          <line>529</line>
+          <properties />
+          <option name="timeStamp" value="52" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/crypto/CipurseCrypto.java</url>
+          <line>99</line>
+          <properties />
+          <option name="timeStamp" value="55" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/crypto/CipurseCrypto.java</url>
+          <line>95</line>
+          <properties />
+          <option name="timeStamp" value="56" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/crypto/CipurseCrypto.java</url>
+          <line>138</line>
+          <properties />
+          <option name="timeStamp" value="57" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/crypto/CipurseCrypto.java</url>
+          <line>130</line>
+          <properties />
+          <option name="timeStamp" value="58" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/crypto/CipurseCrypto.java</url>
+          <line>564</line>
+          <properties />
+          <option name="timeStamp" value="59" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/crypto/CipurseCrypto.java</url>
+          <line>113</line>
+          <properties />
+          <option name="timeStamp" value="60" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/securemessaging/CipurseSimulator.java</url>
+          <line>27</line>
+          <properties />
+          <option name="timeStamp" value="62" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/HrsApplet.java</url>
+          <line>325</line>
+          <properties />
+          <option name="timeStamp" value="63" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/crypto/CipurseCrypto.java</url>
-          <line>474</line>
+          <line>479</line>
           <option name="timeStamp" value="15" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="40" />
+      <option name="time" value="64" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -2143,8 +2149,8 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="439" column="68" selection-start-line="439" selection-start-column="68" selection-end-line="439" selection-end-column="68" />
           <folding>
-            <element signature="e#13537#13538#0" expanded="true" />
-            <element signature="e#13580#13581#0" expanded="true" />
+            <element signature="e#13636#13637#0" expanded="true" />
+            <element signature="e#13679#13680#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2287,14 +2293,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/crypto/Padding.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33271375">
-          <caret line="14" column="72" selection-start-line="14" selection-start-column="72" selection-end-line="14" selection-end-column="72" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$PROJECT_DIR$/Application/lib/jcardsim-3.0.4-SNAPSHOT-android.jar!/com/licel/jcardsim/base/Simulator.class">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-4.148148">
@@ -2303,17 +2301,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Application/src/main/java/com/example/android/cardemulation/CardService.java">
+    <entry file="jar://$USER_HOME$/AppData/Local/Android/sdk/platforms/android-23/android.jar!/android/os/BaseBundle.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="119" column="0" selection-start-line="119" selection-start-column="0" selection-end-line="119" selection-end-column="0" />
-          <folding />
+        <state vertical-scroll-proportion="-2.5555556">
+          <caret line="64" column="34" selection-start-line="64" selection-start-column="34" selection-end-line="64" selection-end-column="34" />
+          <folding>
+            <element signature="e#1452#1453#0" expanded="true" />
+            <element signature="e#1503#1504#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="jar://$PROJECT_DIR$/Application/lib/jcardsim-3.0.4-SNAPSHOT-android.jar!/javacard/framework/Util.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.9259257">
+        <state vertical-scroll-proportion="-10.925926">
           <caret line="66" column="0" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
           <folding />
         </state>
@@ -2321,8 +2322,34 @@
     </entry>
     <entry file="jar://$PROJECT_DIR$/Application/lib/jcardsim-3.0.4-SNAPSHOT-android.jar!/com/licel/jcardsim/base/SimulatorRuntime.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.148148">
-          <caret line="364" column="0" selection-start-line="364" selection-start-column="0" selection-end-line="364" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.33266532">
+          <caret line="360" column="0" selection-start-line="360" selection-start-column="0" selection-end-line="360" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/crypto/Padding.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33269963">
+          <caret line="37" column="64" selection-start-line="37" selection-start-column="55" selection-end-line="37" selection-end-column="64" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/CipurseSecureMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="96" column="0" selection-start-line="96" selection-start-column="0" selection-end-line="96" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Application/src/main/java/com/example/android/cardemulation/CardService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="132" column="0" selection-start-line="132" selection-start-column="0" selection-end-line="132" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -2330,17 +2357,7 @@
     <entry file="file://$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/securemessaging/CipurseSimulator.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/CipurseSecureMessage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="88" column="5" selection-start-line="88" selection-start-column="5" selection-end-line="88" selection-end-column="5" />
+          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -2349,8 +2366,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/crypto/CipurseCrypto.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.148148">
-          <caret line="113" column="0" selection-start-line="113" selection-start-column="0" selection-end-line="113" selection-end-column="0" />
+        <state vertical-scroll-proportion="-6.148148">
+          <caret line="564" column="0" selection-start-line="564" selection-start-column="0" selection-end-line="564" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -2359,11 +2376,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Application/src/main/java/ch/smartlink/javacard/HrsApplet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.19402985">
-          <caret line="439" column="47" selection-start-line="439" selection-start-column="47" selection-end-line="439" selection-end-column="47" />
+        <state vertical-scroll-proportion="0.4971591">
+          <caret line="319" column="0" selection-start-line="319" selection-start-column="0" selection-end-line="319" selection-end-column="0" />
           <folding>
-            <element signature="e#13537#13538#0" expanded="true" />
-            <element signature="e#13580#13581#0" expanded="true" />
+            <element signature="e#13636#13637#0" expanded="true" />
+            <element signature="e#13679#13680#0" expanded="true" />
           </folding>
         </state>
       </provider>

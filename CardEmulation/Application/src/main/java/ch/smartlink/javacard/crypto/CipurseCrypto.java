@@ -93,14 +93,14 @@ public class CipurseCrypto implements ISO7816{
 	public byte[] wrapCommand(byte[] plainCommand, byte SMI) throws CipurseException {
 
 		// process according to SMI
-		int smi =  SMI & CipurseConstant.BITMAP_SMI_COMMAND;
+		int smi =  SMI & CipurseConstant.BITMAP_SMI_FOR_RESPONSE;
 		byte[] wrappedCommand;
 		switch (smi) {
-		case CipurseConstant.SM_COMMAND_MACED:
+		case CipurseConstant.SM_RESPONSE_MACED:
 			wrappedCommand=  getMACedCommand(plainCommand, SMI);
 			break;
 
-		case CipurseConstant.SM_COMMAND_ENCED:
+		case CipurseConstant.SM_RESPONSE_ENCED:
 			wrappedCommand = getENCedCommand(plainCommand, SMI);
 			break;
 
@@ -125,20 +125,25 @@ public class CipurseCrypto implements ISO7816{
 	 */
 	public byte[] unwrapCommand(byte[] smCommand, byte SMI) throws CipurseException {
 		// process according to SMI
-		switch (SMI & CipurseConstant.BITMAP_SMI_FOR_RESPONSE) {
-		case CipurseConstant.SM_RESPONSE_MACED:
-			return unwrapMACedCommand(smCommand);
+		byte[] unwrappedCommand ;
+		switch (SMI & CipurseConstant.BITMAP_SMI_COMMAND) {
+		case CipurseConstant.SM_COMMAND_MACED:
+			unwrappedCommand = unwrapMACedCommand(smCommand);
+			break;
 
-		case CipurseConstant.SM_RESPONSE_ENCED:
-			return unwrapENCedCommand(smCommand);
+		case CipurseConstant.SM_COMMAND_ENCED:
+			unwrappedCommand = unwrapENCedCommand(smCommand);
+			break;
 
 		case CipurseConstant.SM_COMMAND_RESPONSE_PLAIN:
-			return unwrapPlainSMCommand(smCommand);
+			unwrappedCommand = unwrapPlainSMCommand(smCommand);
+			break;
 
 		default:
 			throw new CipurseException(CipurseConstant.INVALID_SMI);
 		}
 
+		return unwrappedCommand;
 	}
 
 	public byte[] generateCT(byte[] RT) throws CipurseException {
@@ -496,12 +501,23 @@ public class CipurseCrypto implements ISO7816{
 	 */
 	private byte[] unwrapENCedCommand(byte[] smCommand) throws CipurseException {
 
-		byte[] encryptedResp = new byte[smCommand.length - 2];
-		System.arraycopy(smCommand, 0, encryptedResp, 0, encryptedResp.length);
+//		Original command APDU:
+//		• CLA - INS - P1 - P2 - {Lc} - {DATA} - {Le}
+//		Transferred ENC’ed command SM-APDU:
+//		• CLA’ - INS - P1 - P2 - Lc’ - SMI - n*CRYPTOGRAM - {Le} - {Le’}
 
+		short lc1 = (short) (smCommand[OFFSET_LC] & 0xFF);
+//		byte lc1 = smCommand[4];
+		byte[] encryptedResp = new byte[lc1 - 1];
+		byte[] encryptedRequestTemp = new byte[encryptedResp.length];
+		System.arraycopy(smCommand, 6, encryptedResp, 0, encryptedResp.length);
+
+		System.arraycopy(encryptedResp, 0, encryptedRequestTemp, 0, encryptedResp.length);
 		if ((encryptedResp.length % CipurseConstant.AES_BLOCK_LENGTH) != 0) {
 			throw new CipurseException(CipurseConstant.RESP_NOT_MUL_AES_BLOCK);
 		}
+
+		// CLA’ - INS - P1 - P2 - {DATA} - MIC - padding
 
 		// decrypt response data
 		byte[] clearResp = generateCipher(encryptedResp, false);
@@ -509,32 +525,41 @@ public class CipurseCrypto implements ISO7816{
 
 		byte[] unpaddedClearResp = Padding.removeISO9797M2(clearResp);
 
-		// MIC+SW
-		int minENcedRespLen = CipurseConstant.MIC_LENGH + 2;
-		if ((unpaddedClearResp == null) || (unpaddedClearResp.length == 0)
-				|| (unpaddedClearResp.length < minENcedRespLen)) {
-			throw new CipurseException(CipurseConstant.RESP_LESS_THAN_MIN_ENC_RESP);
-		}
+
+		String data = MessageUtil.byteArrayToHexString(unpaddedClearResp);
+		System.out.println(data);
+
+		int minENcedReqLen = CipurseConstant.MIC_LENGH + 4 + unpaddedClearResp.length;
+
+
+
+		// MIC
+//		int minENcedRespLen = CipurseConstant.MIC_LENGH + 4;
+//		if ((unpaddedClearResp == null) || (unpaddedClearResp.length == 0)
+//				|| (unpaddedClearResp.length < minENcedRespLen)) {
+//			throw new CipurseException(CipurseConstant.RESP_LESS_THAN_MIN_ENC_RESP);
+//		}
 
 		// compare the SW with the one passed in respose
-		if ((unpaddedClearResp[unpaddedClearResp.length - 2] != smCommand[smCommand.length - 2])
-				&& (unpaddedClearResp[unpaddedClearResp.length - 1] != smCommand[smCommand.length - 1])) {
-			throw new CipurseException(CipurseConstant.MISSMATCHED_SW);
-		}
+//		if ((unpaddedClearResp[unpaddedClearResp.length - 2] != smCommand[smCommand.length - 2])
+//				&& (unpaddedClearResp[unpaddedClearResp.length - 1] != smCommand[smCommand.length - 1])) {
+//			throw new CipurseException(CipurseConstant.MISSMATCHED_SW);
+//		}
 
 		// unpadded length - (MIC+SW)
-		int actualRespDataLen = unpaddedClearResp.length - (CipurseConstant.MIC_LENGH + 2);
+		int actualRespDataLen = unpaddedClearResp.length ;
 
+		String unpaddedClearRespStr = MessageUtil.byteArrayToHexString(unpaddedClearResp);
 		// data for MIC
-		// {DATA} - SW1 - SW2 - {padding with 00H up to k * 4 byte}
-		byte[] dataForMIC = new byte[actualRespDataLen + 2];
-		System.arraycopy(unpaddedClearResp, 0, dataForMIC, 0, actualRespDataLen);
-		System.arraycopy(smCommand, (smCommand.length - 2), dataForMIC, actualRespDataLen, 2);
+		// CLA’ - INS - P1 - P2 - {DATA} - MIC - padding
+		byte[] dataForMIC = new byte[unpaddedClearResp.length - 4 + 2];
+		System.arraycopy(smCommand, 0, dataForMIC, 0, 6);
+		System.arraycopy(unpaddedClearResp, 4, dataForMIC, 6, dataForMIC.length - 6);
+		//System.arraycopy(encryptedRequestTemp, 0, dataForMIC, actualRespDataLen, 2);
 
-		byte[] hostMIC = computeMIC(dataForMIC);
-		byte[] cardMIC = new byte[CipurseConstant.MIC_LENGH];
-		System.arraycopy(unpaddedClearResp, (unpaddedClearResp.length - 6),
-				cardMIC, 0, CipurseConstant.MIC_LENGH);
+		byte[] cardMIC = computeMIC(dataForMIC);
+		byte[] hostMIC = new byte[CipurseConstant.MIC_LENGH];
+		System.arraycopy(unpaddedClearResp, (unpaddedClearResp.length - 4), hostMIC, 0, CipurseConstant.MIC_LENGH);
 
 		if (Arrays.equals(cardMIC, hostMIC)) {
 			return dataForMIC;

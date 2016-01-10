@@ -198,6 +198,9 @@ public class HrsApplet extends Applet implements ISO7816 {
 
             // Other instructions
             switch (ins) {
+                case (byte) 0xD6:
+                    // Update binary
+                     break;
                 case (byte) 0xA4:
                     System.out.println("Select ");
                     break;
@@ -464,13 +467,14 @@ public class HrsApplet extends Applet implements ISO7816 {
 
     public byte[] wrapResponse(byte[] response, byte SMI) {
 
+        byte[] wrappedResponse = null;
         try {
-            return cipurseSecureMessage.wrapCommand(response, SMI);
+            wrappedResponse = cipurseSecureMessage.wrapCommand(response, SMI);
         } catch (CipurseException e) {
             e.printStackTrace();
             ISOException.throwIt(SW_UNKNOWN);
         }
-        return  null;
+        return  wrappedResponse;
     }
     /**
      * Get length of TLV element.
