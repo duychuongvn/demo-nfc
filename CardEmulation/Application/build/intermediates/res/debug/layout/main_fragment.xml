@@ -62,4 +62,4 @@ limitations under the License.
             android:singleLine="true"
             android:inputType="number" />
     </LinearLayout>
-</FrameLayout><!-- From: file:/E:/Work/chuonghd/myproject/anroid/learning/CardEmulation/Application/src/main/res/layout/main_fragment.xml -->
+</FrameLayout><!-- From: file:/E:/Work/chuonghd/myproject/cipurse-research/android-nfc-payment-demo/demo-nfc/CardEmulation/Application/src/main/res/layout/main_fragment.xml -->

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/E:/Work/chuonghd/myproject/anroid/learning/CardEmulation/Application/build/intermediates/exploded-aar/com.android.support/cardview-v7/23.1.0/res/values/values.xml -->
+    <!-- From: file:/E:/Work/chuonghd/myproject/cipurse-research/android-nfc-payment-demo/demo-nfc/CardEmulation/Application/build/intermediates/exploded-aar/com.android.support/cardview-v7/23.1.0/res/values/values.xml -->
     <eat-comment/>
     <color name="cardview_dark_background">#FF202020</color>
     <color name="cardview_light_background">#FFFAFAFA</color>
@@ -10,7 +10,7 @@
     <dimen name="cardview_compat_inset_shadow">1dp</dimen>
     <dimen name="cardview_default_elevation">2dp</dimen>
     <dimen name="cardview_default_radius">2dp</dimen>
-    <!-- From: file:/E:/Work/chuonghd/myproject/anroid/learning/CardEmulation/Application/src/main/res/values/template-dimens.xml -->
+    <!-- From: file:/E:/Work/chuonghd/myproject/cipurse-research/android-nfc-payment-demo/demo-nfc/CardEmulation/Application/src/main/res/values/template-dimens.xml -->
     <eat-comment/>
     <dimen name="horizontal_page_margin">@dimen/margin_medium</dimen>
     <dimen name="margin_huge">64dp</dimen>
@@ -19,19 +19,19 @@
     <dimen name="margin_small">8dp</dimen>
     <dimen name="margin_tiny">4dp</dimen>
     <dimen name="vertical_page_margin">@dimen/margin_medium</dimen>
-    <!-- From: file:/E:/Work/chuonghd/myproject/anroid/learning/CardEmulation/Application/src/main/res/values/strings.xml -->
+    <!-- From: file:/E:/Work/chuonghd/myproject/cipurse-research/android-nfc-payment-demo/demo-nfc/CardEmulation/Application/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="account_number">Account Number</string>
-    <!-- From: file:/E:/Work/chuonghd/myproject/anroid/learning/CardEmulation/Application/src/main/res/values/base-strings.xml -->
+    <!-- From: file:/E:/Work/chuonghd/myproject/cipurse-research/android-nfc-payment-demo/demo-nfc/CardEmulation/Application/src/main/res/values/base-strings.xml -->
     <eat-comment/>
     <string name="app_name">CardEmulation</string>
-    <!-- From: file:/E:/Work/chuonghd/myproject/anroid/learning/CardEmulation/Application/src/main/res/values/strings.xml -->
+    <!-- From: file:/E:/Work/chuonghd/myproject/cipurse-research/android-nfc-payment-demo/demo-nfc/CardEmulation/Application/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="card_title">Sample Loyalty Card</string>
     <string name="hrs_aid">D00001020300000001</string>
     <string name="hrs_aid_partial">D000010203</string>
     <string name="hrs_name">Samsung HRS</string>
-    <!-- From: file:/E:/Work/chuonghd/myproject/anroid/learning/CardEmulation/Application/src/main/res/values/base-strings.xml -->
+    <!-- From: file:/E:/Work/chuonghd/myproject/cipurse-research/android-nfc-payment-demo/demo-nfc/CardEmulation/Application/src/main/res/values/base-strings.xml -->
     <eat-comment/>
     <string name="intro_message">
         <![CDATA[
@@ -47,17 +47,17 @@
         
         ]]>
     </string>
-    <!-- From: file:/E:/Work/chuonghd/myproject/anroid/learning/CardEmulation/Application/src/main/res/values/fragmentview_strings.xml -->
+    <!-- From: file:/E:/Work/chuonghd/myproject/cipurse-research/android-nfc-payment-demo/demo-nfc/CardEmulation/Application/src/main/res/values/fragmentview_strings.xml -->
     <eat-comment/>
     <string name="sample_hide_log">Hide Log</string>
     <string name="sample_show_log">Show Log</string>
-    <!-- From: file:/E:/Work/chuonghd/myproject/anroid/learning/CardEmulation/Application/src/main/res/values/strings.xml -->
+    <!-- From: file:/E:/Work/chuonghd/myproject/cipurse-research/android-nfc-payment-demo/demo-nfc/CardEmulation/Application/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="service_name">CardEmulation Sample</string>
-    <!-- From: file:/E:/Work/chuonghd/myproject/anroid/learning/CardEmulation/Application/src/main/res/values/template-styles.xml -->
+    <!-- From: file:/E:/Work/chuonghd/myproject/cipurse-research/android-nfc-payment-demo/demo-nfc/CardEmulation/Application/src/main/res/values/template-styles.xml -->
     <eat-comment/>
     <style name="AppTheme" parent="Theme.Sample"/>
-    <!-- From: file:/E:/Work/chuonghd/myproject/anroid/learning/CardEmulation/Application/build/intermediates/exploded-aar/com.android.support/cardview-v7/23.1.0/res/values/values.xml -->
+    <!-- From: file:/E:/Work/chuonghd/myproject/cipurse-research/android-nfc-payment-demo/demo-nfc/CardEmulation/Application/build/intermediates/exploded-aar/com.android.support/cardview-v7/23.1.0/res/values/values.xml -->
     <eat-comment/>
     <style name="CardView">
         <item name="cardBackgroundColor">@color/cardview_light_background</item>
@@ -73,7 +73,7 @@
     <style name="CardView.Light">
         <item name="cardBackgroundColor">@color/cardview_light_background</item>
     </style>
-    <!-- From: file:/E:/Work/chuonghd/myproject/anroid/learning/CardEmulation/Application/src/main/res/values/template-styles.xml -->
+    <!-- From: file:/E:/Work/chuonghd/myproject/cipurse-research/android-nfc-payment-demo/demo-nfc/CardEmulation/Application/src/main/res/values/template-styles.xml -->
     <eat-comment/>
     <style name="Theme.Base" parent="android:Theme.Light"/>
     <style name="Theme.Sample" parent="Theme.Base"/>

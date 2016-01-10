@@ -8,13 +8,13 @@ import org.osptalliance.cipurse.ILogger;
 import org.osptalliance.cipurse.PaddingAlgo;
 import org.osptalliance.cipurse.ProcessingAlgo;
 import org.osptalliance.cipurse.commands.ByteArray;
-import org.osptalliance.cipurse.crypto.CipurseCrypto;
 import org.osptalliance.cipurse.securemessaging.ICipurseSMKey;
 import org.osptalliance.javacard.cipurse.host.SecureMessaging;
 import org.osptalliance.javacard.cipurse.host.SecureMessagingException;
 
 import java.util.Arrays;
 
+import ch.smartlink.javacard.crypto.CipurseCrypto;
 import javacard.framework.APDU;
 import javacard.framework.ISO7816;
 import javacard.framework.ISOException;
@@ -32,7 +32,7 @@ public class CipurseSecureMessage extends SecureMessaging implements ISO7816 {
 
     private static CipurseSecureMessage cipurseSecureMessage;
     private final RandomData random;
-    private HrsCipurseCrypto cipurseCrypto = null;
+    private CipurseCrypto cipurseCrypto = null;
     private ILogger logger = null;
     private IAes Aes = null;
 
@@ -79,7 +79,7 @@ public class CipurseSecureMessage extends SecureMessaging implements ISO7816 {
         try {
             this.logger = logger;
             this.Aes = Aes;
-            this.cipurseCrypto = new HrsCipurseCrypto(Aes, logger);
+            this.cipurseCrypto = new CipurseCrypto(Aes, logger);
             this.random = RandomData.getInstance(RandomData.ALG_SECURE_RANDOM);
         } catch (CipurseException ce) {
             throw ce;
@@ -93,7 +93,9 @@ public class CipurseSecureMessage extends SecureMessaging implements ISO7816 {
     }
 
     public byte[] wrapCommand(byte[] plainCommand, byte SMI) throws CipurseException {
-        return this.samSmKey != null ? this.samSmKey.getCipurseSM().wrapCommand(plainCommand, SMI) : this.cipurseCrypto.wrapCommand(plainCommand, SMI);
+
+        return this.cipurseCrypto.wrapCommand(plainCommand, SMI);
+        //return this.samSmKey != null ? this.samSmKey.getCipurseSM().wrapCommand(plainCommand, SMI) : this.cipurseCrypto.wrapCommand(plainCommand, SMI);
     }
 
     public byte[] unWrapCommand(byte[] smCommand, byte SMI) throws CipurseException {

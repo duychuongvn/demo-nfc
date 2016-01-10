@@ -107,6 +107,7 @@ public class HrsApplet extends Applet implements ISO7816 {
     private IAes aes;
     private ILogger logger;
     private HrsKey hrsKey;
+    private byte SMI;
     public HrsApplet() throws CipurseException {
         this.aes = new AES();
         this.logger = new Logger();
@@ -149,7 +150,7 @@ public class HrsApplet extends Applet implements ISO7816 {
         //TODO Force SM if contactless is used
         sm_success = false;
         if(cla == (byte)0x04) {
-            byte SMI = buf[5];
+            SMI = buf[5];
             //CLA’ - INS - P1 - P2 - Lc’ - SMI - {DATA} - {Le} - {Le’}
             try {
                 String cmd = MessageUtil.byteArrayToHexString(buf);
@@ -163,6 +164,8 @@ public class HrsApplet extends Applet implements ISO7816 {
                 cmd = MessageUtil.byteArrayToHexString(command);
                 System.out.println("Unwraped command:" + cmd);
 
+
+                sm_success = true;
             }catch (CipurseException ce) {
                 ce.printStackTrace();
             }
@@ -432,11 +435,24 @@ public class HrsApplet extends Applet implements ISO7816 {
         }
 
         // If SM is used, wrap response
-//        if (sm_success) {
-//            len = cipurseSecureMessage.wrapCommand(buf, )
-//            len = sm.wrapResponseAPDU(buf, _0, len, status);
-//        }
+        if (sm_success) {
+//            try {
+                String response = "313233343536";
+                byte[] dataResponse = MessageUtil.hexStringToByteArray(response);
+                System.arraycopy(dataResponse, 0, buf, 0, dataResponse.length);
+            len = (short)dataResponse.length;
+//                //byte[] wrapResponse  = cipurseSecureMessage.wrapCommand(MessageUtil.hexStringToByteArray(response), SMI);
+//             //   len = (short)wrapResponse.length;
+//             //   System.arraycopy(wrapResponse, 0, buf, 0, len);
+////                status = SW_COMMAND_NOT_ALLOWED;
+//
+//            } catch (CipurseException e) {
+//                e.printStackTrace();
+//            }
+//
+        }
 
+      //  apdu.setOutgoingNoChaining();
         // Send data in buffer
         apdu.setOutgoingLength(len);
         apdu.sendBytes(_0, len);
@@ -446,6 +462,16 @@ public class HrsApplet extends Applet implements ISO7816 {
             ISOException.throwIt(status);
     }
 
+    public byte[] wrapResponse(byte[] response, byte SMI) {
+
+        try {
+            return cipurseSecureMessage.wrapCommand(response, SMI);
+        } catch (CipurseException e) {
+            e.printStackTrace();
+            ISOException.throwIt(SW_UNKNOWN);
+        }
+        return  null;
+    }
     /**
      * Get length of TLV element.
      *

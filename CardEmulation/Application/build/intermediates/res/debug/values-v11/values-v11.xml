@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/E:/Work/chuonghd/myproject/anroid/learning/CardEmulation/Application/src/main/res/values-v11/template-styles.xml -->
+    <!-- From: file:/E:/Work/chuonghd/myproject/cipurse-research/android-nfc-payment-demo/demo-nfc/CardEmulation/Application/src/main/res/values-v11/template-styles.xml -->
     <eat-comment/>
     <style name="Theme.Base" parent="android:Theme.Holo.Light"/>
 </resources>

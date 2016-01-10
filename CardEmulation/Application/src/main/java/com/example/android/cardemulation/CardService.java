@@ -31,6 +31,7 @@ import java.util.Arrays;
 
 import ch.smartlink.javacard.HrsApplet;
 import ch.smartlink.javacard.MessageUtil;
+import ch.smartlink.javacard.securemessaging.CipurseSimulator;
 
 /**
  * This is a sample APDU Service which demonstrates how to interface with the card emulation support
@@ -128,14 +129,15 @@ public class CardService extends HostApduService {
         if (!extra_error.isEmpty())
             i.putExtra(EXTRA_ERROR, extra_error);
 
+        String apdu1 = MessageUtil.byteArrayToHexString(rapdu);
         LocalBroadcastManager.getInstance(this).sendBroadcast(i);
-
+        System.out.println(apdu1);
         return rapdu;
     }
 
     private void createSimulator() {
         String aid, name, extra_install = "", extra_error = "";
-        simulator = new Simulator(new SimulatorRuntime());
+        simulator = new Simulator(new CipurseSimulator());
 
 
         name = getResources().getString(R.string.hrs_name);
