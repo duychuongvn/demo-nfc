@@ -16,13 +16,16 @@
 
 package com.example.android.cardemulation;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,17 +43,40 @@ import ch.smartlink.javacard.hrs.CardInfo;
  */
 public class CardEmulationFragment extends Fragment {
 
+    private static final String SELECT_APPLET = "00A40400085F00000000000001";
     public static final String TAG = "CardEmulationFragment";
 
     /** Called when sample is created. Displays generic UI with welcome text. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        LocalBroadcastManager.getInstance(this.getContext()).registerReceiver(mMessageReceiver, new IntentFilter(CardService.TAG_CREATE_APPLET));
     }
 
 
     private Button btnUpdate;
     private EditText account;
+    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            try {
+                String initData = intent.getStringExtra(CardService.INIT_CARD_MESSAGE);
+                String responseData = intent.getStringExtra(CardService.EXTRA_RAPDU);
+                Log.i(TAG, initData);
+                if(!SELECT_APPLET.equals(initData)) {
+                    if("9000".equals(responseData)) {
+                        Toast.makeText(context, "Load key successful", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(context, "Load key faile with status: " + initData, Toast.LENGTH_LONG).show();
+                    }
+                }
+            } catch (Exception ex) {
+                Log.e(TAG, ex.getMessage(), ex);
+            }
+        }
+    };
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -73,7 +99,7 @@ public class CardEmulationFragment extends Fragment {
 
     private void storeCardInfo(String key) {
         if(key==null || key.length() != 16) {
-            Toast.makeText(getContext(), "Length of key must be 16", Toast.LENGTH_SHORT);
+            Toast.makeText(getContext(), "Length of key must be 16", Toast.LENGTH_SHORT).show();
             throw new IllegalArgumentException("Length of key must be 16");
         }
         Intent intent = new Intent(CardService.INIT_CARD_INTENT);
@@ -96,7 +122,7 @@ public class CardEmulationFragment extends Fragment {
         LocalBroadcastManager.getInstance(getContext()).sendBroadcast(intent);
     }
     private void selectApplet() {
-        byte[] command = MessageUtil.hexStringToByteArray("00A40400085F00000000000001");
+        byte[] command = MessageUtil.hexStringToByteArray(SELECT_APPLET);
         Intent intent = new Intent(CardService.INIT_CARD_INTENT);
         intent.putExtra(CardService.INIT_CARD_MESSAGE, MessageUtil.byteArrayToHexString(command));
         LocalBroadcastManager.getInstance(getContext()).sendBroadcast(intent);
