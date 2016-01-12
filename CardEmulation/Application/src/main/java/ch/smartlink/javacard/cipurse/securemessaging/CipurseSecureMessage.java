@@ -1,4 +1,4 @@
-package ch.smartlink.javacard;
+package ch.smartlink.javacard.cipurse.securemessaging;
 
 import org.osptalliance.cipurse.CipurseException;
 import org.osptalliance.cipurse.CryptoParameters;
@@ -7,14 +7,14 @@ import org.osptalliance.cipurse.ICryptoEngine;
 import org.osptalliance.cipurse.ILogger;
 import org.osptalliance.cipurse.PaddingAlgo;
 import org.osptalliance.cipurse.ProcessingAlgo;
-import org.osptalliance.cipurse.commands.ByteArray;
 import org.osptalliance.cipurse.securemessaging.ICipurseSMKey;
 import org.osptalliance.javacard.cipurse.host.SecureMessaging;
 import org.osptalliance.javacard.cipurse.host.SecureMessagingException;
 
 import java.util.Arrays;
 
-import ch.smartlink.javacard.crypto.CipurseCrypto;
+import ch.smartlink.javacard.MessageUtil;
+import ch.smartlink.javacard.cipurse.crypto.CipurseCrypto;
 import javacard.framework.APDU;
 import javacard.framework.ISO7816;
 import javacard.framework.ISOException;
@@ -93,9 +93,7 @@ public class CipurseSecureMessage extends SecureMessaging implements ISO7816 {
     }
 
     public byte[] wrapCommand(byte[] plainCommand, byte SMI) throws CipurseException {
-
-        return this.cipurseCrypto.wrapCommand(plainCommand, SMI);
-        //return this.samSmKey != null ? this.samSmKey.getCipurseSM().wrapCommand(plainCommand, SMI) : this.cipurseCrypto.wrapCommand(plainCommand, SMI);
+        return this.samSmKey != null ? this.samSmKey.getCipurseSM().wrapCommand(plainCommand, SMI) : this.cipurseCrypto.wrapCommand(plainCommand, SMI);
     }
 
     public byte[] unWrapCommand(byte[] smCommand, byte SMI) throws CipurseException {
@@ -208,41 +206,6 @@ public class CipurseSecureMessage extends SecureMessaging implements ISO7816 {
             ISOException.throwIt(SW_WRONG_DATA);
         if(key instanceof HrsKey) {
             this.hrsKey = (HrsKey) key;
-
-            // send to terminal
-//            byte[] RP = new byte[16];
-//            byte[] rP = new byte[6];
-//            System.arraycopy(response, 0, RP, 0, 16);
-//            System.arraycopy(response, 16, rP, 0, 6);
-//            byte[] RT = this.cipurseCrypto.getRandom(16);
-//            byte[] rT = this.cipurseCrypto.getRandom(6);
-//            byte[] Cp = ex.generateK0AndGetCp((byte[])keyValue, RP, rP, RT, rT);
-
-
-            // receive multual
-//            System.arraycopy(Cp, 0, mutualAuth, 0, 16);
-//            System.arraycopy(RT, 0, mutualAuth, 16, 16);
-//            System.arraycopy(rT, 0, mutualAuth, 32, 6);
-//            byte[] mutualAuthCmd = new byte[this.mutualAuthHeader.length + mutualAuth.length + 2];
-//            System.arraycopy(this.mutualAuthHeader, 0, mutualAuthCmd, 0, this.mutualAuthHeader.length);
-//            System.arraycopy(mutualAuth, 0, mutualAuthCmd, 5, mutualAuth.length);
-
-//
-//            this.rP = rP1;
-//            this.RP = RP1;
-//            this.RT = RT1;
-//            this.rT = rT1;
-
-//            byte[] cP = new byte[16];
-//            byte[] cp = new byte[6];
-//            try {
-//                Ct = this.cipurseCrypto.generateK0AndGetCp(hrsKey.getKeyValue(), cP, cp, RP, rP);
-//                System.arraycopy(Ct, 0, buffer, 0, Ct.length);
-//                System.arraycopy(rP, 0, buffer, Ct.length, rP.length);
-//            }catch (CipurseException ex) {
-//                throw new SecureMessagingException(SW_WRONG_DATA);
-//            }
-
             System.arraycopy(RP, 0, buffer, 0, 16);
             System.arraycopy(rP, 0, buffer, 16, 6);
         }

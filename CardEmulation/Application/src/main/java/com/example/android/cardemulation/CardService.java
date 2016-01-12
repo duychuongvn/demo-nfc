@@ -16,22 +16,22 @@
 
 package com.example.android.cardemulation;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.nfc.cardemulation.HostApduService;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 
-import com.example.android.common.logger.Log;
 import com.licel.jcardsim.base.Simulator;
-import com.licel.jcardsim.base.SimulatorRuntime;
-import com.licel.jcardsim.samples.HelloWorldApplet;
 import com.licel.jcardsim.utils.AIDUtil;
 
 import java.util.Arrays;
 
-import ch.smartlink.javacard.HrsApplet;
+import ch.smartlink.javacard.applet.HrsApplet;
 import ch.smartlink.javacard.MessageUtil;
-import ch.smartlink.javacard.securemessaging.CipurseSimulator;
+import ch.smartlink.javacard.cipurse.crypto.CipurseSimulator;
 
 /**
  * This is a sample APDU Service which demonstrates how to interface with the card emulation support
@@ -50,6 +50,10 @@ import ch.smartlink.javacard.securemessaging.CipurseSimulator;
  * protocol support as needed.
  */
 public class CardService extends HostApduService {
+
+    public static final String INIT_CARD_INTENT = "initCardIntent";
+    public static final String INIT_CARD_MESSAGE = "initCardMessage";
+
     public static final String EXTRA_CAPDU = "MSG_CAPDU";
     public static final String EXTRA_RAPDU = "MSG_RAPDU";
     public static final String EXTRA_ERROR = "MSG_ERROR";
@@ -67,7 +71,11 @@ public class CardService extends HostApduService {
     // "UNKNOWN" status word sent in response to invalid APDU command (0x0000)
     private static final byte[] UNKNOWN_CMD_SW = HexStringToByteArray("0000");
     private static final byte[] SELECT_APDU = BuildSelectApdu(SAMPLE_LOYALTY_CARD_AID);
+
+
+
     private static Simulator simulator = null;
+
     /**
      * Called if the connection to the NFC card is lost, in order to let the application know the
      * cause for the disconnection (either a lost link, or another AID being selected by the
@@ -111,6 +119,7 @@ public class CardService extends HostApduService {
 //        } else {
 //            return UNKNOWN_CMD_SW;
 //        }
+
         Intent i = new Intent(TAG);
         String extra_error = "";
         byte[] rapdu = null;
@@ -167,9 +176,31 @@ public class CardService extends HostApduService {
         super.onCreate();
         if (simulator == null) {
             createSimulator();
+            LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, new IntentFilter(INIT_CARD_INTENT));
         }
 
     }
+
+
+    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+
+        @Override
+
+        public void onReceive(Context context, Intent intent) {
+
+
+            String createFileHex = intent.getStringExtra(INIT_CARD_MESSAGE);
+
+            try {
+                simulator.transmitCommand(MessageUtil.hexStringToByteArray(createFileHex));
+            }catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+
+    };
+
+
 
     // END_INCLUDE(processCommandApdu)
 

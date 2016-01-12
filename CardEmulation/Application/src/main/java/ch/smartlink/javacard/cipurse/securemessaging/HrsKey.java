@@ -1,4 +1,4 @@
-package ch.smartlink.javacard;
+package ch.smartlink.javacard.cipurse.securemessaging;
 
 import javacard.security.Key;
 

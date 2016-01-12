@@ -1,4 +1,4 @@
-package ch.smartlink.javacard.crypto;
+package ch.smartlink.javacard.cipurse.crypto;
 
 import java.util.Arrays;
 
@@ -248,19 +248,7 @@ public class CipurseCrypto implements ISO7816{
      */
 	public byte[] getPlainSMCommand(byte[] command, byte SMI) throws CipurseException {
 		eCaseType orgCaseType =Utility.getCaseType(command);
-//
-//
-//
-//		// check allowed value for Lc
-//		if (orgCaseType == eCaseType.CASE_4) {
-//			if (((short)((command[CipurseConstant.OFFSET_LC]&0x00FF))) > CipurseConstant.PLAIN_MAX_LC_WITHLE) {
-//				throw new CipurseException(CipurseConstant.LC_GRT_ALLOWED);
-//			}
-//		} else if (orgCaseType == eCaseType.CASE_3) {
-//			if (((short)((command[CipurseConstant.OFFSET_LC]&0x00FF))) > CipurseConstant.PLAIN_MAX_LC_WITHOUTLE) {
-//				throw new CipurseException(CipurseConstant.LC_GRT_ALLOWED);
-//			}
-//		}
+		//TODO: check valid command and rename method, variable
 		// Original command APDU:
 		// - CLA - INS - P1 - P2 - {Lc} - {DATA} - {Le}
 		// Transferred command SM-APDU:
@@ -272,13 +260,9 @@ public class CipurseCrypto implements ISO7816{
 		// Calculate virtual MAC and generate new frame key
 		byte[] smCommand = new byte[command.length];
 		System.arraycopy(command, 0, smCommand, 0, command.length);
-		byte[] dataPadded = Padding.schemeISO9797M2(
-				smCommand, CipurseConstant.AES_BLOCK_LENGTH);
+		byte[] dataPadded = Padding.schemeISO9797M2(smCommand, CipurseConstant.AES_BLOCK_LENGTH);
 		generateMAC(dataPadded);
-
 		return smCommand;
-		// set Le' only if original Le not present and request in plain
-		// otherwise Le' is always present
 	}
 
 	/**
@@ -292,14 +276,11 @@ public class CipurseCrypto implements ISO7816{
 	 */
 	public byte[] getMACedCommand(byte[] command, byte SMI) throws CipurseException {
 
-	//	eCaseType orgCaseType = Utility.getCaseType(command);
-
-	//		Original response APDU:
-	//		• {DATA} - SW1 - SW2
-	//		Transferred MAC’ed response SM-APDU:
-	//		• {DATA} - MAC - SW1 - SW2
-
-
+		// TODO: check command and rename
+		//		Original response APDU:
+		//		• {DATA} - SW1 - SW2
+		//		Transferred MAC’ed response SM-APDU:
+		//		• {DATA} - MAC - SW1 - SW2
 		byte[] smMacCommand = new byte[command.length+CipurseConstant.OSPT_MAC_LENGTH];
 		byte[] smMacData = new byte[command.length];
 		System.arraycopy(command, 0, smMacData, 0, command.length);
@@ -308,12 +289,8 @@ public class CipurseCrypto implements ISO7816{
 		// generate MAc and compute next frame key
 		byte[] mac = generateMAC(dataPadded);
 		System.arraycopy(mac, 0, smMacCommand, command.length - CipurseConstant.OSPT_RESPONSE_STATUS_LENGTH, CipurseConstant.OSPT_MAC_LENGTH);
-
 		System.arraycopy(command, command.length - CipurseConstant.OSPT_RESPONSE_STATUS_LENGTH,
 				smMacCommand, smMacCommand.length - CipurseConstant.OSPT_RESPONSE_STATUS_LENGTH, CipurseConstant.OSPT_RESPONSE_STATUS_LENGTH);
-
-		String cmd = MessageUtil.byteArrayToHexString(smMacCommand);
-		//System.arraycopy(smMacCommand, 0, command, 0, smMacCommand.length);
 		return smMacCommand;
 	}
 
@@ -327,16 +304,7 @@ public class CipurseCrypto implements ISO7816{
 	 * @throws CipurseException
 	 */
 	private byte[] getENCedCommand(byte[] command, byte SMI) throws CipurseException {
-
-//		eCaseType orgCaseType = Utility.getCaseType(command);
-//
-//		// check allowed value for Lc
-//		if ((orgCaseType == eCaseType.CASE_4)
-//				|| (orgCaseType == eCaseType.CASE_3)) {
-//			if ((short)((command[CipurseConstant.OFFSET_LC]&0x00FF)) > CipurseConstant.ENC_MAX_LC) {
-//				throw new CipurseException(CipurseConstant.LC_GRT_ALLOWED);
-//			}
-//		}
+		//TODO: check command and rename variable
 
 //		{DATA} - SW1 - SW2
 //		Transferred ENC’ed response SM-APDU:
@@ -347,24 +315,6 @@ public class CipurseCrypto implements ISO7816{
 		byte[] orgLe = null;
 		byte[] orgCommandData = null;
 
-//		if ((orgCaseType == eCaseType.CASE_3)
-//				|| (orgCaseType == eCaseType.CASE_4)) {
-//			orgCommandData = new byte[(short)(command[CipurseConstant.OFFSET_LC] & 0x00FF)];
-//			System.arraycopy(command, CipurseConstant.OFFSET_CMD_DATA,
-//					orgCommandData, 0, orgCommandData.length);
-//		}
-
-//		if ((orgCaseType == eCaseType.CASE_2)
-//				|| (orgCaseType == eCaseType.CASE_4)) {
-//			orgLe = new byte[1];
-//			orgLe[0] = command[command.length - 1];
-//		}
-
-//		byte[] smCommand = getOSPTModifiedCommand(command, SMI);
-
-		// calculate length of n*Cryptgram after padding
-
-
 		// prepare data for MIC calculation
 		// - CLA' - INS - P1 - P2 - Lc' - SMI - {DATA} - {Le}
 		byte[] dataForMIC = new byte[command.length];
@@ -372,28 +322,17 @@ public class CipurseCrypto implements ISO7816{
 		byte[] mic = computeMIC(dataForMIC);
 		logger.log(ILogger.INFO_MESSAGE, "MIC", mic);
 
-		String stringdataForMIC = MessageUtil.byteArrayToHexString(dataForMIC);
-		String stringMIC = MessageUtil.byteArrayToHexString(mic);
+		// Original command + MIC
 		byte[] smCommand = new byte[command.length + CipurseConstant.MIC_LENGH];
 		System.arraycopy(command, 0, smCommand, 0, command.length - 2);
 		System.arraycopy(mic, 0, smCommand, command.length - 2, 4);
 		System.arraycopy(command, command.length - 2, smCommand, smCommand.length - 2, 2);
-
-		String stringCmd = MessageUtil.byteArrayToHexString(smCommand);
-
-		// header-Lc(=4) + original data + MIC-4
 		byte[] nCryptogramPadded =   Padding.schemeISO9797M2(smCommand,CipurseConstant.AES_BLOCK_LENGTH);
-
-		String stringPad = MessageUtil.byteArrayToHexString(nCryptogramPadded);
-		int nCryptogramPaddedLen = nCryptogramPadded.length;
-		// nCryptogramPadded is already padde, just encrypt
 		byte[] nCryptogramCipher = generateCipher(nCryptogramPadded, true);
 
 		byte[] response = new byte[nCryptogramCipher.length +2];
 		System.arraycopy(nCryptogramCipher, 0,response, 0, nCryptogramCipher.length);
 		System.arraycopy(command, command.length -2,response, response.length-2, 2);
-
-		String stringRes = MessageUtil.byteArrayToHexString(response);
 		return  response;
 	}
 
@@ -412,7 +351,6 @@ public class CipurseCrypto implements ISO7816{
 
 		// generate virtual MAC and generate next frame key
 		generateMAC(dataPadded);
-
 		return smCommand;
 	}
 
@@ -426,6 +364,13 @@ public class CipurseCrypto implements ISO7816{
 	 */
 	private byte[] unwrapMACedCommand(byte[] smCommand) throws CipurseException {
 
+		// TODO: check valid command and rename
+
+
+		byte lc = smCommand[OFFSET_LC];
+		byte[] command = new byte[5 + lc];
+
+		System.arraycopy(smCommand, 0, command, 0, command.length);
 //
 //        Original command APDU:
 //        • CLA - INS - P1 - P2 - {Lc} - {DATA} - {Le}
@@ -437,19 +382,30 @@ public class CipurseCrypto implements ISO7816{
 //        The MAC is calculated over one or multiple 16-byte blocks of the following composition of elements:
 //        • CLA’ - INS - P1 - P2 - Lc’ - SMI - {DATA} - {Le} - padding
 //
-		byte[] dataForMAC = new byte[smCommand.length - CipurseConstant.OSPT_MAC_LENGTH];
-		System.arraycopy(smCommand, 0, dataForMAC, 0, dataForMAC.length );
-		byte[] dataPadded = ch.smartlink.javacard.Padding.schemeISO9797M2(dataForMAC, CipurseConstant.AES_BLOCK_LENGTH);
+		byte[] dataForMAC = new byte[command.length - CipurseConstant.OSPT_MAC_LENGTH];
+		System.arraycopy(command, 0, dataForMAC, 0, dataForMAC.length );
+		byte[] dataPadded = Padding.schemeISO9797M2(dataForMAC, CipurseConstant.AES_BLOCK_LENGTH);
 		byte[] cardMac = this.generateMAC(dataPadded);
 		byte[] hostMac = new byte[CipurseConstant.OSPT_MAC_LENGTH];
-		System.arraycopy(smCommand, smCommand.length - CipurseConstant.OSPT_MAC_LENGTH, hostMac, 0, CipurseConstant.OSPT_MAC_LENGTH);
+		System.arraycopy(command, command.length - CipurseConstant.OSPT_MAC_LENGTH, hostMac, 0, CipurseConstant.OSPT_MAC_LENGTH);
 		if(Arrays.equals(cardMac, hostMac)) {
-			return smCommand;
+			return dataForMAC;
 		}
 		ISOException.throwIt(SW_CONDITIONS_NOT_SATISFIED);
 		return null ;
 	}
 
+	private boolean isLePresent(byte[] command) {
+		byte INS = command[OFFSET_INS];
+		boolean isReadCommand = false;
+		// READ INSTRUCTION
+		if((INS & 0xff) == 0xB0) {
+			String sINS = MessageUtil.byteArrayToHexString(new byte[]{INS});
+			System.out.println("Read: " + sINS);
+			isReadCommand = true;
+		}
+		return isReadCommand;
+	}
 	/**
 	 * <p>
 	 * Unwrap the encrypted reponse
@@ -460,14 +416,21 @@ public class CipurseCrypto implements ISO7816{
 	 */
 	private byte[] unwrapENCedCommand(byte[] smCommand) throws CipurseException {
 
-//		Original command APDU:
-//		• CLA - INS - P1 - P2 - {Lc} - {DATA} - {Le}
-//		Transferred ENC’ed command SM-APDU:
-//		• CLA’ - INS - P1 - P2 - Lc’ - SMI - n*CRYPTOGRAM - {Le} - {Le’}
+		// TODO: check valid command and rename
+		//		Original command APDU:
+		//		• CLA - INS - P1 - P2 - {Lc} - {DATA} - {Le}
+		//		Transferred ENC’ed command SM-APDU:
+		//		• CLA’ - INS - P1 - P2 - Lc’ - SMI - n*CRYPTOGRAM - {Le} - {Le’}
 
 		short lc1 = (short) (smCommand[OFFSET_LC] & 0xFF);
 //		byte lc1 = smCommand[4];
+		boolean isLePresent = isLePresent(smCommand);
 		byte[] encryptedResp = new byte[lc1 - 1];
+		byte le = 0x00;
+		if(isLePresent) {
+			encryptedResp = new byte[lc1 -2];
+			le = smCommand[encryptedResp.length + 6];
+		}
 		byte[] encryptedRequestTemp = new byte[encryptedResp.length];
 		System.arraycopy(smCommand, 6, encryptedResp, 0, encryptedResp.length);
 
@@ -483,44 +446,30 @@ public class CipurseCrypto implements ISO7816{
 		logger.log(ILogger.INFO_MESSAGE, "Deciphered Data", clearResp);
 
 		byte[] unpaddedClearResp = Padding.removeISO9797M2(clearResp);
-
-
-		String data = MessageUtil.byteArrayToHexString(unpaddedClearResp);
-		System.out.println(data);
-
-		int minENcedReqLen = CipurseConstant.MIC_LENGH + 4 + unpaddedClearResp.length;
-
-
-
-		// MIC
-//		int minENcedRespLen = CipurseConstant.MIC_LENGH + 4;
-//		if ((unpaddedClearResp == null) || (unpaddedClearResp.length == 0)
-//				|| (unpaddedClearResp.length < minENcedRespLen)) {
-//			throw new CipurseException(CipurseConstant.RESP_LESS_THAN_MIN_ENC_RESP);
-//		}
-
-		// compare the SW with the one passed in respose
-//		if ((unpaddedClearResp[unpaddedClearResp.length - 2] != smCommand[smCommand.length - 2])
-//				&& (unpaddedClearResp[unpaddedClearResp.length - 1] != smCommand[smCommand.length - 1])) {
-//			throw new CipurseException(CipurseConstant.MISSMATCHED_SW);
-//		}
-
-		// unpadded length - (MIC+SW)
-		int actualRespDataLen = unpaddedClearResp.length ;
-
-		String unpaddedClearRespStr = MessageUtil.byteArrayToHexString(unpaddedClearResp);
 		// data for MIC
 		// CLA’ - INS - P1 - P2 - {DATA} - MIC - padding
-		byte[] dataForMIC = new byte[unpaddedClearResp.length - 4 + 2];
-		System.arraycopy(smCommand, 0, dataForMIC, 0, 6);
-		System.arraycopy(unpaddedClearResp, 4, dataForMIC, 6, dataForMIC.length - 6);
-		//System.arraycopy(encryptedRequestTemp, 0, dataForMIC, actualRespDataLen, 2);
+		//
+		int dataForMicLen = unpaddedClearResp.length - 4 + 2;
+		if(isLePresent) {
+			dataForMicLen += 1;
+		}
+		byte[] dataForMIC = new byte[dataForMicLen];
 
+		// copy command header
+		System.arraycopy(smCommand, 0, dataForMIC, 0, 6);
+		// copy data
+		System.arraycopy(unpaddedClearResp, 4, dataForMIC, 6, dataForMIC.length - 6);
+
+		if(isLePresent) {
+			dataForMIC[dataForMicLen - 1] = le;
+		}
 		byte[] cardMIC = computeMIC(dataForMIC);
 		byte[] hostMIC = new byte[CipurseConstant.MIC_LENGH];
 		System.arraycopy(unpaddedClearResp, (unpaddedClearResp.length - 4), hostMIC, 0, CipurseConstant.MIC_LENGH);
 
 		if (Arrays.equals(cardMIC, hostMIC)) {
+
+
 			return dataForMIC;
 		} else {
 			throw new CipurseException(CipurseConstant.MIC_VER_FAIL);

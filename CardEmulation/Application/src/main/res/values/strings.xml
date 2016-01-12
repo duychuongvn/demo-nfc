@@ -16,10 +16,10 @@ limitations under the License.
 -->
 
 <resources>
-    <string name="service_name">CardEmulation Sample</string>
-    <string name="card_title">Sample Loyalty Card</string>
-    <string name="account_number">Account Number</string>
-    <string name="hrs_aid">D00001020300000001</string>
+    <string name="service_name">Smartlink HRS Sample</string>
+    <string name="card_title">Sample Samsung HRS Card</string>
+    <string name="account_number">Key Number</string>
+    <string name="hrs_aid">5F00000000000001</string>
     <string name="hrs_name">Samsung HRS</string>
-    <string name="hrs_aid_partial">D000010203</string>
+    <string name="hrs_aid_partial">5F00000000000001</string>
 </resources>

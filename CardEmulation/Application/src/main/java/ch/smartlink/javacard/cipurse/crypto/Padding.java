@@ -1,4 +1,4 @@
-package ch.smartlink.javacard.crypto;
+package ch.smartlink.javacard.cipurse.crypto;
 
 import java.util.Arrays;
 
