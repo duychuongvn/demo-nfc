@@ -21,15 +21,15 @@
     <dimen name="vertical_page_margin">@dimen/margin_medium</dimen>
     <!-- From: file:/E:/Work/chuonghd/myproject/cipurse-research/android-nfc-payment-demo/demo-nfc/CardEmulation/Application/src/main/res/values/strings.xml -->
     <eat-comment/>
-    <string name="account_number">Account Number</string>
+    <string name="account_number">Key Number</string>
     <!-- From: file:/E:/Work/chuonghd/myproject/cipurse-research/android-nfc-payment-demo/demo-nfc/CardEmulation/Application/src/main/res/values/base-strings.xml -->
     <eat-comment/>
     <string name="app_name">CardEmulation</string>
     <!-- From: file:/E:/Work/chuonghd/myproject/cipurse-research/android-nfc-payment-demo/demo-nfc/CardEmulation/Application/src/main/res/values/strings.xml -->
     <eat-comment/>
-    <string name="card_title">Sample Loyalty Card</string>
-    <string name="hrs_aid">D00001020300000001</string>
-    <string name="hrs_aid_partial">D000010203</string>
+    <string name="card_title">Sample Samsung HRS Card</string>
+    <string name="hrs_aid">5F00000000000001</string>
+    <string name="hrs_aid_partial">5F00000000000001</string>
     <string name="hrs_name">Samsung HRS</string>
     <!-- From: file:/E:/Work/chuonghd/myproject/cipurse-research/android-nfc-payment-demo/demo-nfc/CardEmulation/Application/src/main/res/values/base-strings.xml -->
     <eat-comment/>
@@ -53,7 +53,7 @@
     <string name="sample_show_log">Show Log</string>
     <!-- From: file:/E:/Work/chuonghd/myproject/cipurse-research/android-nfc-payment-demo/demo-nfc/CardEmulation/Application/src/main/res/values/strings.xml -->
     <eat-comment/>
-    <string name="service_name">CardEmulation Sample</string>
+    <string name="service_name">Smartlink HRS Sample</string>
     <!-- From: file:/E:/Work/chuonghd/myproject/cipurse-research/android-nfc-payment-demo/demo-nfc/CardEmulation/Application/src/main/res/values/template-styles.xml -->
     <eat-comment/>
     <style name="AppTheme" parent="Theme.Sample"/>

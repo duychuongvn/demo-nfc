@@ -60,6 +60,8 @@ public class CardEmulationFragment extends Fragment {
         account = (EditText) v.findViewById(R.id.card_account_field);
         account.setText(AccountStorage.GetAccount(getActivity()));
         account.addTextChangedListener(new AccountUpdater());
+
+
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

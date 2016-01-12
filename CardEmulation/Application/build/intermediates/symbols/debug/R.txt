@@ -26,11 +26,12 @@ int dimen vertical_page_margin 0x7f050001
 int drawable card_background 0x7f020000
 int drawable ic_launcher 0x7f020001
 int drawable tile 0x7f020002
+int id btnUpdate 0x7f0a0007
 int id card_account_field 0x7f0a0006
 int id card_account_label 0x7f0a0005
 int id card_title 0x7f0a0004
 int id log_fragment 0x7f0a0002
-int id menu_toggle_log 0x7f0a0007
+int id menu_toggle_log 0x7f0a0008
 int id sample_content_fragment 0x7f0a0003
 int id sample_main_layout 0x7f0a0000
 int id sample_output 0x7f0a0001

@@ -17,7 +17,7 @@ limitations under the License.
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="380dp"
-    android:layout_height="242.25dp"
+    android:layout_height="282.25dp"
     android:layout_gravity="center"
     android:layout_margin="20dp">
     <ImageView
@@ -58,8 +58,12 @@ limitations under the License.
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-condensed"
             android:textStyle="bold"
-            android:textSize="42dp"
+            android:textSize="30dp"
             android:singleLine="true"
             android:inputType="number" />
+        <Button
+            android:layout_width="wrap_content" android:textSize="30dp" android:text="Update" android:id="@+id/btnUpdate"
+            android:layout_height="wrap_content" />
     </LinearLayout>
+
 </FrameLayout><!-- From: file:/E:/Work/chuonghd/myproject/cipurse-research/android-nfc-payment-demo/demo-nfc/CardEmulation/Application/src/main/res/layout/main_fragment.xml -->

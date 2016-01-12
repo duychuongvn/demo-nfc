@@ -139,11 +139,12 @@ containing a value of this type.
         public static final int tile=0x7f020002;
     }
     public static final class id {
+        public static final int btnUpdate=0x7f0a0007;
         public static final int card_account_field=0x7f0a0006;
         public static final int card_account_label=0x7f0a0005;
         public static final int card_title=0x7f0a0004;
         public static final int log_fragment=0x7f0a0002;
-        public static final int menu_toggle_log=0x7f0a0007;
+        public static final int menu_toggle_log=0x7f0a0008;
         public static final int sample_content_fragment=0x7f0a0003;
         public static final int sample_main_layout=0x7f0a0000;
         public static final int sample_output=0x7f0a0001;
