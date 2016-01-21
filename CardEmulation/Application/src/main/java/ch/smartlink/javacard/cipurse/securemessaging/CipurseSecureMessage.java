@@ -43,13 +43,6 @@ public class CipurseSecureMessage extends SecureMessaging implements ISO7816 {
     private static byte[] nullVector = new byte[16];
 
     private HrsKey hrsKey;
-    private APDU apdu;
-    private short lc;
-    private short p1p2;
-    private byte p2;
-    private byte p1;
-    private byte ins;
-    private byte cla;
     private short _0 = 0;
     private byte[] rP;
     private byte[] RP;
@@ -64,28 +57,15 @@ public class CipurseSecureMessage extends SecureMessaging implements ISO7816 {
     }
 
     public void init(APDU apdu) {
-        this.apdu = apdu;
-        byte[] buf = apdu.getBuffer();
-        cla= buf[OFFSET_CLA];
-        ins = buf[OFFSET_INS];
-        p1 = buf[OFFSET_P1];
-        p2 = buf[OFFSET_P2];
-        p1p2 = Util.makeShort(p1, p2);
-        lc = (short) (buf[OFFSET_LC] & 0xFF);
-        mutualAuthCmd = null;
     }
 
-    public CipurseSecureMessage(IAes Aes, ILogger logger) throws CipurseException {
-        try {
-            this.logger = logger;
-            this.Aes = Aes;
-            this.cipurseCrypto = new CipurseCrypto(Aes, logger);
-            this.random = RandomData.getInstance(RandomData.ALG_SECURE_RANDOM);
-        } catch (CipurseException ce) {
-            throw ce;
-        } catch (Exception var6) {
-            throw new CipurseException(var6);
-        }
+    public CipurseSecureMessage(IAes Aes, ILogger logger) {
+
+        this.logger = logger;
+        this.Aes = Aes;
+        this.cipurseCrypto = new CipurseCrypto(Aes, logger);
+        this.random = RandomData.getInstance(RandomData.ALG_SECURE_RANDOM);
+
     }
 
     public void setKeyValues(byte[][] keySet) {
@@ -188,8 +168,9 @@ public class CipurseSecureMessage extends SecureMessaging implements ISO7816 {
     public short buildGetChallenge(byte[] buffer, short offset) {
         RP = this.cipurseCrypto.getRandom(16);
         rP = this.cipurseCrypto.getRandom(6);
-        return lc;
+        return buffer[OFFSET_LC];
     }
+
     /**
      * Method to build MUTUAL AUTENTICATE command based on the previously derived
      * session key k0 and the random data generated with finishGetChallenge().
@@ -204,7 +185,7 @@ public class CipurseSecureMessage extends SecureMessaging implements ISO7816 {
     public void finishGetChallenge(byte[] buffer, short offset, short length, Key key) throws SecureMessagingException {
         if (length > CHALLENGES_MAX_LENGTH)
             ISOException.throwIt(SW_WRONG_DATA);
-        if(key instanceof HrsKey) {
+        if (key instanceof HrsKey) {
             this.hrsKey = (HrsKey) key;
             System.arraycopy(RP, 0, buffer, 0, 16);
             System.arraycopy(rP, 0, buffer, 16, 6);
@@ -221,7 +202,7 @@ public class CipurseSecureMessage extends SecureMessaging implements ISO7816 {
         mutualAuthCmd = new byte[this.mutualAuthHeader.length + mutualAuth.length + 2];
         System.arraycopy(this.mutualAuthHeader, 0, mutualAuthCmd, 0, this.mutualAuthHeader.length);
         System.arraycopy(mutualAuth, 0, mutualAuthCmd, 5, mutualAuth.length);
-        mutualAuthCmd[4] = (byte)(mutualAuth.length & 255);
+        mutualAuthCmd[4] = (byte) (mutualAuth.length & 255);
         mutualAuthCmd[mutualAuthCmd.length - 1] = 16;
         return 0;
     }
@@ -236,18 +217,18 @@ public class CipurseSecureMessage extends SecureMessaging implements ISO7816 {
             System.arraycopy(buffer, 21, RT, 0, 16);
             System.arraycopy(buffer, 37, rT, 0, 6);
 
-            byte[] cP1 = this.cipurseCrypto.generateK0AndGetCp(hrsKey.getKeyValue(),RP, rP, RT, rT);
+            byte[] cP1 = this.cipurseCrypto.generateK0AndGetCp(hrsKey.getKeyValue(), RP, rP, RT, rT);
 
             if (Arrays.equals(cP1, cP)) {
                 byte[] Ct = this.cipurseCrypto.generateCT(RT);
-                System.arraycopy(Ct, 0, buffer, 0,Ct.length);
+                System.arraycopy(Ct, 0, buffer, 0, Ct.length);
             } else {
 
                 this.logger.log("Terminal response verification failed");
                 ISOException.throwIt(SW_WRONG_DATA);
                 throw new SecureMessagingException(SW_WRONG_DATA);
             }
-        }catch (CipurseException ex) {
+        } catch (CipurseException ex) {
             logger.log(1, MessageUtil.hexStringToByteArray(ex.getMessage()));
             ISOException.throwIt(SW_WRONG_DATA);
             throw new SecureMessagingException(SW_WRONG_DATA);
@@ -256,6 +237,7 @@ public class CipurseSecureMessage extends SecureMessaging implements ISO7816 {
 
     /**
      * Unwrap card response and store output data in the specified buffer.
+     *
      * @param inBuffer
      * @param inOffset
      * @param inLength
@@ -270,6 +252,7 @@ public class CipurseSecureMessage extends SecureMessaging implements ISO7816 {
 
     /**
      * Wraps a command with the specified security level.
+     *
      * @param smi
      * @param inBuffer
      * @param inOffset

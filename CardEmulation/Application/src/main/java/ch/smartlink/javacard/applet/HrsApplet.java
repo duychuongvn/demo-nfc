@@ -112,6 +112,7 @@ public class HrsApplet extends Applet implements ISO7816 {
     private HrsKey hrsKey;
     private byte SMI;
     private byte[] fileInfo;
+
     public HrsApplet() throws CipurseException {
         this.aes = new AES();
         this.logger = new Logger();
@@ -140,7 +141,6 @@ public class HrsApplet extends Applet implements ISO7816 {
         if (selectingApplet()) {
             return;
         }
-        cipurseSecureMessage.init(apdu);
         byte[] buf = apdu.getBuffer();
         byte cla = buf[OFFSET_CLA];
         byte ins = buf[OFFSET_INS];
@@ -151,7 +151,6 @@ public class HrsApplet extends Applet implements ISO7816 {
 
 
         // Secure messaging
-        //TODO Force SM if contactless is used
         sm_success = false;
         if (cla == (byte) 0x04) {
             SMI = buf[5];
@@ -175,9 +174,9 @@ public class HrsApplet extends Applet implements ISO7816 {
 
             // Other instructions
             switch (ins) {
-                case (byte)0xB0:
+                case (byte) 0xB0:
                     // Read binary
-                    le= createFile(buf);
+                    le = readFile(buf);
                     break;
                 case (byte) 0xE0:
                     storeCardInfo(buf);
@@ -267,8 +266,6 @@ public class HrsApplet extends Applet implements ISO7816 {
             }
         } catch (ISOException e) {
             status = e.getReason();
-        } catch (Exception e) {
-            e.printStackTrace();
         } finally {
             if (status != (short) 0x9000) {
                 // Send the exception that was thrown
@@ -285,7 +282,7 @@ public class HrsApplet extends Applet implements ISO7816 {
         }
     }
 
-    private short  createFile(byte[] buf) {
+    private short readFile(byte[] buf) {
         byte le = fileInfo[0];
         System.arraycopy(fileInfo, 1, buf, 0, le);
         return le;
@@ -296,11 +293,11 @@ public class HrsApplet extends Applet implements ISO7816 {
 
         byte posCard = 5 + 16;
         byte lc = buf[4];
-        byte cardLen = (byte)(lc - 16);
+        byte cardLen = (byte) (lc - 16);
         byte[] roomKey = new byte[16];
         byte[] cardData = new byte[cardLen];
         System.arraycopy(buf, 5, roomKey, 0, 16);
-        System.arraycopy(buf, posCard, cardData, 0, cardLen );
+        System.arraycopy(buf, posCard, cardData, 0, cardLen);
         fileInfo[0] = cardLen;
         System.arraycopy(cardData, 0, fileInfo, 1, cardLen);
         this.hrsKey.initKey(roomKey);
